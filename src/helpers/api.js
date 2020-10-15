@@ -1,0 +1,59 @@
+import axios from "axios";
+// const BASE_URL = "http://localhost:4000";
+const BASE_URL = "https://weather-station-server.herokuapp.com";
+axios.interceptors.request.use(async function (config) {
+	const { token } = await persistToken();
+	console.log("interceptor", token);
+	if (token != null) {
+		config.headers.Authorization = `Bearer ${token}`;
+	}
+	config.url = `${BASE_URL}${config.url}`;
+	return config;
+});
+
+axios.interceptors.response.use(
+	(response) => {
+		return response;
+	},
+	(error) => {
+		const status = error.response.status;
+		return Promise.reject({
+			status,
+		});
+	}
+);
+
+const persistToken = async () => {
+	const persistedAuth = await JSON.parse(localStorage.getItem("persist:root"));
+	return (await JSON.parse(persistedAuth.auth)) || "";
+};
+
+export async function getAllDataByWeatherStation(id) {
+	const options = {
+		method: "POST",
+		url: `/getAll?weatherStation=${id}&timeSpan=6.hours.ago`,
+		mode: "no-cors",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		json: true,
+	};
+	return axios(options)
+		.then((res) => res)
+		.catch((err) => err);
+}
+
+export async function getTempsByWeatherStation(id) {
+	const options = {
+		method: "POST",
+		url: `/getTemp?weatherStation=${id}&timeSpan=6.hours.ago`,
+		mode: "no-cors",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		json: true,
+	};
+	return axios(options)
+		.then((res) => res)
+		.catch((err) => err);
+}

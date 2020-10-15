@@ -15,12 +15,15 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useState } from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
-import _ from "underscore";
+import {
+	getAllDataByWeatherStation,
+	getTempsByWeatherStation,
+} from "../helpers/api";
 
 // reactstrap components
 import {
@@ -55,43 +58,38 @@ class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			bigChartData: "data1",
 			weatherStationId: 1,
+			loading: true,
+			temps: { loading: "loading" },
 		};
+		getTempsByWeatherStation(1).then((res) => {
+			if (res.status === 200) {
+				this.state = {
+					temps: res.data,
+					weatherStationId: 1,
+					loading: false,
+				};
+			} else {
+				console.log(res);
+				this.state = { loading: false };
+			}
+		});
 	}
 
-	getData(id) {
-		fetch(
-			`https://weather-stationserver.herokuapp.com/getAll?weatherStation=${2}&timeSpan=6.hours.ago`
-		)
-			.then((res) => res.json())
-			.then(
-				(result) => {
-					this.setState({
-						isLoaded: true,
-						temperatures: _.pluck(result.items, "temperatures"),
-					});
-				},
-				// Note: it's important to handle errors here
-				// instead of a catch() block so that we don't swallow
-				// exceptions from actual bugs in components.
-				(error) => {
-					this.setState({
-						isLoaded: true,
-						error,
-					});
-				}
-			);
+	handleOnClick(id) {
+		getTempsByWeatherStation(id).then((res) => {
+			if (res.status === 200) {
+				console.log(res);
+				this.state = {
+					temps: res.data,
+					weatherStationId: id,
+				};
+				console.log(this.state.temps);
+			} else {
+				console.log(res);
+			}
+		});
 	}
-
-	// setBgChartData = (name) => {
-	// 	this.setState({
-	// 		bigChartData: name,
-	// 	});
-	// };
-	// handleClick = (id) => {
-	// this.
-	// };
 
 	render() {
 		return (
@@ -109,8 +107,7 @@ class Dashboard extends React.Component {
 										<Col sm="6">
 											<ButtonGroup
 												className="btn-group-toggle float-right"
-												data-toggle="buttons"
-											>
+												data-toggle="buttons">
 												<Button
 													tag="label"
 													className={classNames("btn-simple", {
@@ -119,8 +116,7 @@ class Dashboard extends React.Component {
 													color="info"
 													id="0"
 													size="sm"
-													onClick={this.getData(1)}
-												>
+													onClick={() => this.handleOnClick(1)}>
 													<input
 														defaultChecked
 														className="d-none"
@@ -142,8 +138,7 @@ class Dashboard extends React.Component {
 													className={classNames("btn-simple", {
 														active: this.state.weatherStationId === 2,
 													})}
-													onClick={this.getData(2)}
-												>
+													onClick={() => this.handleOnClick(2)}>
 													<input
 														className="d-none"
 														name="options"
@@ -164,8 +159,7 @@ class Dashboard extends React.Component {
 													className={classNames("btn-simple", {
 														active: this.state.weatherStationId === 3,
 													})}
-													onClick={this.getData(3)}
-												>
+													onClick={() => this.handleOnClick(3)}>
 													<input
 														className="d-none"
 														name="options"
@@ -182,12 +176,17 @@ class Dashboard extends React.Component {
 										</Col>
 									</Row>
 								</CardHeader>
-								<CardBody>
+								<CardBody labels={Object.keys(this.state.temps)}>
 									<div className="chart-area">
-										<Line
-											data={this.state.temperatures} //{chartExample1["data1"]} //this.state.weatherStationId]}
-											options={chartExample1.options}
-										/>
+										{this.state.loading ? (
+											<Line
+												labels={Object.keys(this.state.temps)}
+												data={Object.values(this.state.temps)} //{chartExample1["data1"]} //this.state.weatherStationId]}
+												options={chartExample1.options}
+											/>
+										) : (
+											<h1>Loading</h1>
+										)}
 									</div>
 								</CardBody>
 							</Card>
@@ -262,27 +261,23 @@ class Dashboard extends React.Component {
 											className="btn-icon"
 											color="link"
 											data-toggle="dropdown"
-											type="button"
-										>
+											type="button">
 											<i className="tim-icons icon-settings-gear-63" />
 										</DropdownToggle>
 										<DropdownMenu aria-labelledby="dropdownMenuLink" right>
 											<DropdownItem
 												href="#pablo"
-												onClick={(e) => e.preventDefault()}
-											>
+												onClick={(e) => e.preventDefault()}>
 												Action
 											</DropdownItem>
 											<DropdownItem
 												href="#pablo"
-												onClick={(e) => e.preventDefault()}
-											>
+												onClick={(e) => e.preventDefault()}>
 												Another action
 											</DropdownItem>
 											<DropdownItem
 												href="#pablo"
-												onClick={(e) => e.preventDefault()}
-											>
+												onClick={(e) => e.preventDefault()}>
 												Something else
 											</DropdownItem>
 										</DropdownMenu>
@@ -314,15 +309,13 @@ class Dashboard extends React.Component {
 															color="link"
 															id="tooltip636901683"
 															title=""
-															type="button"
-														>
+															type="button">
 															<i className="tim-icons icon-pencil" />
 														</Button>
 														<UncontrolledTooltip
 															delay={0}
 															target="tooltip636901683"
-															placement="right"
-														>
+															placement="right">
 															Edit Task
 														</UncontrolledTooltip>
 													</td>
@@ -356,15 +349,13 @@ class Dashboard extends React.Component {
 															color="link"
 															id="tooltip457194718"
 															title=""
-															type="button"
-														>
+															type="button">
 															<i className="tim-icons icon-pencil" />
 														</Button>
 														<UncontrolledTooltip
 															delay={0}
 															target="tooltip457194718"
-															placement="right"
-														>
+															placement="right">
 															Edit Task
 														</UncontrolledTooltip>
 													</td>
@@ -392,15 +383,13 @@ class Dashboard extends React.Component {
 															color="link"
 															id="tooltip362404923"
 															title=""
-															type="button"
-														>
+															type="button">
 															<i className="tim-icons icon-pencil" />
 														</Button>
 														<UncontrolledTooltip
 															delay={0}
 															target="tooltip362404923"
-															placement="right"
-														>
+															placement="right">
 															Edit Task
 														</UncontrolledTooltip>
 													</td>
@@ -427,15 +416,13 @@ class Dashboard extends React.Component {
 															color="link"
 															id="tooltip818217463"
 															title=""
-															type="button"
-														>
+															type="button">
 															<i className="tim-icons icon-pencil" />
 														</Button>
 														<UncontrolledTooltip
 															delay={0}
 															target="tooltip818217463"
-															placement="right"
-														>
+															placement="right">
 															Edit Task
 														</UncontrolledTooltip>
 													</td>
@@ -464,15 +451,13 @@ class Dashboard extends React.Component {
 															color="link"
 															id="tooltip831835125"
 															title=""
-															type="button"
-														>
+															type="button">
 															<i className="tim-icons icon-pencil" />
 														</Button>
 														<UncontrolledTooltip
 															delay={0}
 															target="tooltip831835125"
-															placement="right"
-														>
+															placement="right">
 															Edit Task
 														</UncontrolledTooltip>
 													</td>
@@ -499,15 +484,13 @@ class Dashboard extends React.Component {
 															color="link"
 															id="tooltip217595172"
 															title=""
-															type="button"
-														>
+															type="button">
 															<i className="tim-icons icon-pencil" />
 														</Button>
 														<UncontrolledTooltip
 															delay={0}
 															target="tooltip217595172"
-															placement="right"
-														>
+															placement="right">
 															Edit Task
 														</UncontrolledTooltip>
 													</td>

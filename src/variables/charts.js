@@ -73,7 +73,7 @@ let chart1_2_options = {
 // #########################################
 // // // used inside src/views/Dashboard.js
 // #########################################
-let chartExample1 = {
+let chartExample1 = (labels) => {
   data1: canvas => {
     let ctx = canvas.getContext("2d");
 
@@ -84,20 +84,7 @@ let chartExample1 = {
     gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
     return {
-      labels: [
-        "JAN",
-        "FEB",
-        "MAR",
-        "APR",
-        "MAY",
-        "JUN",
-        "JUL",
-        "AUG",
-        "SEP",
-        "OCT",
-        "NOV",
-        "DEC"
-      ],
+      labels: labels,
       datasets: [
         {
           label: "My First dataset",
