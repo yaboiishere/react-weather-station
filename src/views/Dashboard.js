@@ -24,7 +24,7 @@ import {
 	getAllDataByWeatherStation,
 	getTempsByWeatherStation,
 } from "../helpers/api";
-
+import { TemperatureChartComponent } from "../components/Chart/TemperatureChartComponent";
 // reactstrap components
 import {
 	Button,
@@ -176,18 +176,11 @@ class Dashboard extends React.Component {
 										</Col>
 									</Row>
 								</CardHeader>
-								<CardBody labels={Object.keys(this.state.temps)}>
-									<div className="chart-area">
-										{this.state.loading ? (
-											<Line
-												labels={Object.keys(this.state.temps)}
-												data={Object.values(this.state.temps)} //{chartExample1["data1"]} //this.state.weatherStationId]}
-												options={chartExample1.options}
-											/>
-										) : (
-											<h1>Loading</h1>
-										)}
-									</div>
+								<CardBody>
+									<TemperatureChartComponent
+										wsId={
+											this.state.weatherStationId
+										}></TemperatureChartComponent>
 								</CardBody>
 							</Card>
 						</Col>
