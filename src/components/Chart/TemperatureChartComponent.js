@@ -1,22 +1,60 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { getTempsByWeatherStation } from "../../helpers/api";
+
 import { chart1_2_options } from "../../variables/charts";
 import { Line, Bar } from "react-chartjs-2";
 
 const TemperatureChartComponent = (props) => {
-	const [labels, setLabel] = useState();
-	const [temp, setTemp] = useState();
-	useEffect(() => {
-		getTempsByWeatherStation(props.wsId).then((res) => {
-			if (res) {
-				setTemp(Object.values(res.data));
-				setLabel(Object.keys(res.data));
-			}
-			// temp = Object.values(res.data);
-			// labels = Object.keys(res.data);
-		});
-	});
+	const temps = props.temps;
+	let options = {
+		maintainAspectRatio: false,
+		legend: {
+			display: false,
+		},
+		tooltips: {
+			backgroundColor: "#f5f5f5",
+			titleFontColor: "#333",
+			bodyFontColor: "#666",
+			bodySpacing: 4,
+			xPadding: 12,
+			mode: "nearest",
+			intersect: 0,
+			position: "nearest",
+		},
+		responsive: true,
+		scales: {
+			yAxes: [
+				{
+					barPercentage: 1.6,
+					gridLines: {
+						drawBorder: false,
+						color: "rgba(29,140,248,0.0)",
+						zeroLineColor: "transparent",
+					},
+					ticks: {
+						suggestedMin: Math.min(...temps),
+						suggestedMax: Math.max(...temps),
+						padding: 20,
+						fontColor: "#9a9a9a",
+					},
+				},
+			],
+			xAxes: [
+				{
+					barPercentage: 1.6,
+					gridLines: {
+						drawBorder: false,
+						color: "rgba(29,140,248,0.1)",
+						zeroLineColor: "transparent",
+					},
+					ticks: {
+						padding: 20,
+						fontColor: "#9a9a9a",
+					},
+				},
+			],
+		},
+	};
 	const chartData = (canvas) => {
 		let ctx = canvas.getContext("2d");
 
@@ -27,11 +65,11 @@ const TemperatureChartComponent = (props) => {
 		gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
 		return {
-			labels: labels,
+			labels: props.labels,
 			datasets: [
 				{
 					label: "Temperature",
-					fill: true,
+					fill: false,
 					backgroundColor: gradientStroke,
 					borderColor: "#1f8ef1",
 					borderWidth: 2,
@@ -41,12 +79,16 @@ const TemperatureChartComponent = (props) => {
 					pointBorderColor: "rgba(255,255,255,0)",
 					pointHoverBackgroundColor: "#1f8ef1",
 					pointBorderWidth: 20,
-					pointHoverRadius: 4,
+					pointHoverRadius: 3,
 					pointHoverBorderWidth: 15,
-					pointRadius: 4,
-					data: temp,
+					pointRadius: 1,
+					data: props.temps,
 				},
 			],
+			// ticks: {
+			// 	min: Math.min(...temp),
+			// 	max: Math.max(...temp),
+			// },
 		};
 	};
 	// const getData = (id) => {
@@ -55,7 +97,7 @@ const TemperatureChartComponent = (props) => {
 		<div className="chart-area">
 			<Line
 				data={chartData} //{chartExample1["data1"]} //this.state.weatherStationId]}
-				options={chart1_2_options}
+				options={options}
 			/>
 		</div>
 	);
