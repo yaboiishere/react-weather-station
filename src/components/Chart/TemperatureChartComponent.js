@@ -1,124 +1,124 @@
 import React from "react";
-import {Line} from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 
-const TemperatureChartComponent = (props) => {
-	const temps = props.temperatures
-	const labels = props.labels
-	const heatIndex = props.heatIndex
-	let options = {
-		maintainAspectRatio: false,
-		legend: {
-			display: false,
-		},
-		tooltips: {
-			backgroundColor: "#f5f5f5",
-			titleFontColor: "#333",
-			bodyFontColor: "#666",
-			bodySpacing: 4,
-			xPadding: 12,
-			mode: "nearest",
-			intersect: 0,
-			position: "nearest",
-		},
-		responsive: true,
-		scales: {
-			yAxes: [{
-				barPercentage: 1.6,
-				gridLines: {
-					drawBorder: false,
-					color: "rgba(29,140,248,0.0)",
-					zeroLineColor: "transparent",
-				},
-				ticks: {
-					suggestedMin: temps ? Math.min(...temps) : -10,
-					suggestedMax: temps ? Math.max(...temps) : 100,
-					padding: 20,
-					fontColor: "#9a9a9a",
-				},
-			}, ],
-			xAxes: [{
-				barPercentage: 1.6,
-				gridLines: {
-					drawBorder: false,
-					color: "rgba(29,140,248,0.1)",
-					zeroLineColor: "transparent",
-				},
-				ticks: {
-					padding: 20,
-					fontColor: "#9a9a9a",
-				},
-			}, ],
-		},
-	};
-	const chartData = (canvas) => {
-		let ctx = canvas.getContext("2d");
+const TemperatureChart = (props) => {
+  const temps = props.temperatures;
+  const labels = props.labels;
+  const heatIndex = props.heatIndex;
+  let options = {
+    maintainAspectRatio: false,
+    legend: {
+      display: false,
+    },
+    tooltips: {
+      backgroundColor: "#f5f5f5",
+      titleFontColor: "#333",
+      bodyFontColor: "#666",
+      bodySpacing: 4,
+      xPadding: 12,
+      mode: "nearest",
+      intersect: 0,
+      position: "nearest",
+    },
+    responsive: true,
+    scales: {
+      yAxes: [
+        {
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: "rgba(29,140,248,0.0)",
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            suggestedMin: temps ? Math.min(...temps) : -10,
+            suggestedMax: temps ? Math.max(...temps) : 100,
+            padding: 20,
+            fontColor: "#9a9a9a",
+          },
+        },
+      ],
+      xAxes: [
+        {
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: "rgba(29,140,248,0.1)",
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            padding: 20,
+            fontColor: "#9a9a9a",
+          },
+        },
+      ],
+    },
+  };
+  const chartData = (canvas) => {
+    let ctx = canvas.getContext("2d");
 
-		let gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+    let gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
 
-		gradientStroke.addColorStop(1, "rgba(29,140,248,0.2)");
-		gradientStroke.addColorStop(0.4, "rgba(29,140,248,0.0)");
-		gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
+    gradientStroke.addColorStop(1, "rgba(29,140,248,0.2)");
+    gradientStroke.addColorStop(0.4, "rgba(29,140,248,0.0)");
+    gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
+    var ctxBig1 = canvas.getContext("2d");
 
-		var ctxBig1 = canvas.getContext("2d");
+    var gradientStrokeBig1 = ctxBig1.createLinearGradient(0, 230, 0, 50);
 
-		var gradientStrokeBig1 = ctxBig1.createLinearGradient(0, 230, 0, 50);
+    gradientStrokeBig1.addColorStop(1, "rgba(72,72,176,0.1)");
+    gradientStrokeBig1.addColorStop(0.4, "rgba(72,72,176,0.0)");
 
-		gradientStrokeBig1.addColorStop(1, 'rgba(72,72,176,0.1)');
-		gradientStrokeBig1.addColorStop(0.4, 'rgba(72,72,176,0.0)');
-
-		return {
-			labels: labels,
-			datasets: [{
-					label: "Temperature",
-					fill: false,
-					backgroundColor: gradientStroke,
-					borderColor: "#1f8ef1",
-					borderWidth: 2,
-					borderDash: [],
-					borderDashOffset: 0.0,
-					pointBackgroundColor: "#1f8ef1",
-					pointBorderColor: "rgba(255,255,255,0)",
-					pointHoverBackgroundColor: "#1f8ef1",
-					pointBorderWidth: 20,
-					pointHoverRadius: 3,
-					pointHoverBorderWidth: 15,
-					pointRadius: 1,
-					data: temps,
-				},
-				{
-					label: "Heat Index",
-					fill: true,
-					backgroundColor: gradientStrokeBig1,
-					borderColor: '#fcba0e',
-					borderWidth: 3,
-					borderDash: [],
-					borderDashOffset: 0.0,
-					pointBackgroundColor: '#fcba0e',
-					pointBorderColor: 'rgba(255,255,255,0)',
-					pointHoverBackgroundColor: '#fcba0e',
-					pointBorderWidth: 20,
-					pointHoverRadius: 4,
-					pointHoverBorderWidth: 15,
-					pointRadius: 1,
-					data: heatIndex,
-				}
-			]
-		};
-	};
-	// const getData = (id) => {
-	// };
-	return ( 
-		<div className = "chart-area" >
-			<Line 
-				data = {chartData}
-				options = {options}/>
-		</div>
-	);
+    return {
+      labels: labels,
+      datasets: [
+        {
+          label: "Temperature",
+          fill: false,
+          backgroundColor: gradientStroke,
+          borderColor: "#1f8ef1",
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: "#1f8ef1",
+          pointBorderColor: "rgba(255,255,255,0)",
+          pointHoverBackgroundColor: "#1f8ef1",
+          pointBorderWidth: 20,
+          pointHoverRadius: 3,
+          pointHoverBorderWidth: 15,
+          pointRadius: 1,
+          data: temps,
+        },
+        {
+          label: "Heat Index",
+          fill: true,
+          backgroundColor: gradientStrokeBig1,
+          borderColor: "#fcba0e",
+          borderWidth: 3,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: "#fcba0e",
+          pointBorderColor: "rgba(255,255,255,0)",
+          pointHoverBackgroundColor: "#fcba0e",
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 1,
+          data: heatIndex,
+        },
+      ],
+    };
+  };
+  // const getData = (id) => {
+  // };
+  return (
+    <div className="chart-area">
+      <Line data={chartData} options={options} />
+    </div>
+  );
 };
 
-TemperatureChartComponent.propTypes = {};
+TemperatureChart.propTypes = {};
 
-export {
-	TemperatureChartComponent
-};
+export { TemperatureChart };

@@ -1,6 +1,4 @@
 import React from "react";
-import { TemperatureChartComponent } from "components/Chart/TemperatureChartComponent.js";
-import { HumidityChartComponent } from "components/Chart/HumidityChartComponent.js";
 import {
   ButtonGroup,
   Card,
@@ -10,6 +8,8 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { TemperatureChart } from "components/Chart/TemperatureChartComponent.js";
+import { HumidityChart } from "components/Chart/HumidityChartComponent.js";
 import { PeopleButtonComponent } from "components/PeopleButtonComponent.js";
 
 const BigCardComponent = (props) => {
@@ -45,69 +45,46 @@ const BigCardComponent = (props) => {
               className="btn-group-toggle float-right"
               data-toggle="buttons"
             >
-              {/* <Button
-								tag="label"
-								className={classNames("btn-simple", {
-									active: props.wsId === 1,
-								})}
-								color="info"
-								id="0"
-								size="sm"
-								onClick={() => handleOnClick(1)}>
-								<input
-									defaultChecked
-									className="d-none"
-									name="options"
-									type="radio"
-								/>
-								<span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-									Accounts
-								</span>
-								<span className="d-block d-sm-none">
-									<i className="tim-icons icon-single-02" />
-								</span>
-							</Button> */}
               <PeopleButtonComponent
                 wsId={1}
                 handleOnClick={handleOnClick}
                 text={"Киро"}
-				active={props.wsId}
-				
+                active={props.wsId}
               />
               <PeopleButtonComponent
                 wsId={2}
                 handleOnClick={handleOnClick}
                 text={"Мишо"}
-				active={props.wsId}
-              />{" "}
+                active={props.wsId}
+              />
               <PeopleButtonComponent
                 wsId={3}
                 handleOnClick={handleOnClick}
                 text={"Крис"}
-				active={props.wsId}
-              />{" "}
+                active={props.wsId}
+              />
               <PeopleButtonComponent
                 wsId={4}
                 handleOnClick={handleOnClick}
                 text={"Злато"}
-				active={props.wsId}
-              />{" "}
+                active={props.wsId}
+              />
               <PeopleButtonComponent
                 wsId={5}
                 handleOnClick={handleOnClick}
                 text={"Лудия"}
-				active={props.wsId}
+                active={props.wsId}
               />
             </ButtonGroup>
           </Col>
         </Row>
       </CardHeader>
       <CardBody>
-        <TemperatureChartComponent
+        <TemperatureChart
           temperatures={temps}
           labels={labels}
           heatIndex={heatIndex}
-        ></TemperatureChartComponent>
+        ></TemperatureChart>
       </CardBody>
       <CardHeader>
         <Row>
@@ -118,10 +95,7 @@ const BigCardComponent = (props) => {
         </Row>
       </CardHeader>
       <CardBody>
-        <HumidityChartComponent
-          humidity={humidity}
-          labels={labels}
-        ></HumidityChartComponent>
+        <HumidityChart humidity={humidity} labels={labels}></HumidityChart>
       </CardBody>
     </Card>
   );
