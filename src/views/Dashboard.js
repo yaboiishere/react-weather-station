@@ -127,6 +127,7 @@ const Dashboard = (props) => {
         <Row>
           <Col lg="12" md="12">
             <AdditionalInfo
+              labels={wsData?.labels}
               accuracyInPercents={wsData?.accuracyInPercents}
               tendInWords={wsData?.tendInWords}
               zambrettisWords={wsData?.zambrettisWords}

@@ -37,7 +37,14 @@ const BigCardComponent = (props) => {
               Temperature (Celcius) + HeatIndex (Celcius)
             </h5>
             <CardTitle tag="h2">
-              Temperature: {lastTemp} °C | Heat Index: {lastHeatIndex} °C
+              <span style={{ marginRight: "40px" }}>
+                <i class="fas fa-thermometer-half text-info"></i>Temperature:{" "}
+                {lastTemp} °C
+              </span>
+              <span>
+                <i class="fas fa-sun text-warning"></i>Heat Index:{" "}
+                {lastHeatIndex} °C
+              </span>
             </CardTitle>
           </Col>
           <Col sm="6">
@@ -90,7 +97,9 @@ const BigCardComponent = (props) => {
         <Row>
           <Col className="text-left" sm="6">
             <h5 className="card-category">Humidity (%)</h5>
-            <CardTitle tag="h2">Humidity: {lastHumidity} %</CardTitle>
+            <CardTitle tag="h2">
+              <i class="fas fa-tint text-info"></i>Humidity: {lastHumidity} %
+            </CardTitle>
           </Col>
         </Row>
       </CardHeader>

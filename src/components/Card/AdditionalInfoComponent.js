@@ -1,3 +1,4 @@
+import { AccuracyChart } from "components/Chart/AccuracyChartComponent";
 import React from "react";
 import { Card, CardHeader, CardBody, CardTitle, Table } from "reactstrap";
 const AdditionalInfo = (props) => {
@@ -38,6 +39,10 @@ const AdditionalInfo = (props) => {
           </tbody>
         </Table>
       </CardBody>
+      {/* <AccuracyChart
+        labels={props.labels}
+        accuracyInPercents={props.accuracyInPercents}
+      ></AccuracyChart> */}
     </Card>
   );
 };
