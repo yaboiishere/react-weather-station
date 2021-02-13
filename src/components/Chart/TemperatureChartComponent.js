@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-
-import { chart1_2_options } from "../../variables/charts";
-import { Line, Bar } from "react-chartjs-2";
+import React from "react";
+import {Line} from "react-chartjs-2";
 
 const TemperatureChartComponent = (props) => {
-	const temps = props.temps;
+	const temps = props.temperatures
+	const labels = props.labels
+	const heatIndex = props.heatIndex
 	let options = {
 		maintainAspectRatio: false,
 		legend: {
@@ -23,36 +22,32 @@ const TemperatureChartComponent = (props) => {
 		},
 		responsive: true,
 		scales: {
-			yAxes: [
-				{
-					barPercentage: 1.6,
-					gridLines: {
-						drawBorder: false,
-						color: "rgba(29,140,248,0.0)",
-						zeroLineColor: "transparent",
-					},
-					ticks: {
-						suggestedMin: Math.min(...temps),
-						suggestedMax: Math.max(...temps),
-						padding: 20,
-						fontColor: "#9a9a9a",
-					},
+			yAxes: [{
+				barPercentage: 1.6,
+				gridLines: {
+					drawBorder: false,
+					color: "rgba(29,140,248,0.0)",
+					zeroLineColor: "transparent",
 				},
-			],
-			xAxes: [
-				{
-					barPercentage: 1.6,
-					gridLines: {
-						drawBorder: false,
-						color: "rgba(29,140,248,0.1)",
-						zeroLineColor: "transparent",
-					},
-					ticks: {
-						padding: 20,
-						fontColor: "#9a9a9a",
-					},
+				ticks: {
+					suggestedMin: temps ? Math.min(...temps) : -10,
+					suggestedMax: temps ? Math.max(...temps) : 100,
+					padding: 20,
+					fontColor: "#9a9a9a",
 				},
-			],
+			}, ],
+			xAxes: [{
+				barPercentage: 1.6,
+				gridLines: {
+					drawBorder: false,
+					color: "rgba(29,140,248,0.1)",
+					zeroLineColor: "transparent",
+				},
+				ticks: {
+					padding: 20,
+					fontColor: "#9a9a9a",
+				},
+			}, ],
 		},
 	};
 	const chartData = (canvas) => {
@@ -64,10 +59,17 @@ const TemperatureChartComponent = (props) => {
 		gradientStroke.addColorStop(0.4, "rgba(29,140,248,0.0)");
 		gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
+
+		var ctxBig1 = canvas.getContext("2d");
+
+		var gradientStrokeBig1 = ctxBig1.createLinearGradient(0, 230, 0, 50);
+
+		gradientStrokeBig1.addColorStop(1, 'rgba(72,72,176,0.1)');
+		gradientStrokeBig1.addColorStop(0.4, 'rgba(72,72,176,0.0)');
+
 		return {
-			labels: props.labels,
-			datasets: [
-				{
+			labels: labels,
+			datasets: [{
 					label: "Temperature",
 					fill: false,
 					backgroundColor: gradientStroke,
@@ -82,27 +84,41 @@ const TemperatureChartComponent = (props) => {
 					pointHoverRadius: 3,
 					pointHoverBorderWidth: 15,
 					pointRadius: 1,
-					data: props.temps,
+					data: temps,
 				},
-			],
-			// ticks: {
-			// 	min: Math.min(...temp),
-			// 	max: Math.max(...temp),
-			// },
+				{
+					label: "Heat Index",
+					fill: true,
+					backgroundColor: gradientStrokeBig1,
+					borderColor: '#fcba0e',
+					borderWidth: 3,
+					borderDash: [],
+					borderDashOffset: 0.0,
+					pointBackgroundColor: '#fcba0e',
+					pointBorderColor: 'rgba(255,255,255,0)',
+					pointHoverBackgroundColor: '#fcba0e',
+					pointBorderWidth: 20,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 15,
+					pointRadius: 1,
+					data: heatIndex,
+				}
+			]
 		};
 	};
 	// const getData = (id) => {
 	// };
-	return (
-		<div className="chart-area">
-			<Line
-				data={chartData} //{chartExample1["data1"]} //this.state.weatherStationId]}
-				options={options}
-			/>
+	return ( 
+		<div className = "chart-area" >
+			<Line 
+				data = {chartData}
+				options = {options}/>
 		</div>
 	);
 };
 
 TemperatureChartComponent.propTypes = {};
 
-export { TemperatureChartComponent };
+export {
+	TemperatureChartComponent
+};

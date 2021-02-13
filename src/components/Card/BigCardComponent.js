@@ -1,73 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { TemperatureChartComponent } from "components/Chart/TemperatureChartComponent.js";
-import PropTypes from "prop-types";
+import { HumidityChartComponent } from "components/Chart/HumidityChartComponent.js";
 import {
-	Button,
-	ButtonGroup,
-	Card,
-	CardHeader,
-	CardBody,
-	CardTitle,
-	Row,
-	Col,
+  ButtonGroup,
+  Card,
+  CardHeader,
+  CardBody,
+  CardTitle,
+  Row,
+  Col,
 } from "reactstrap";
-import classNames from "classnames";
-import { format } from "date-fns";
-import { getTempsByWeatherStation } from "../../helpers/api";
+import { PeopleButtonComponent } from "components/PeopleButtonComponent.js";
 
 const BigCardComponent = (props) => {
-	const [labels, setLabel] = useState([]);
-	const [temps, setTemp] = useState([]);
-	// const [wsId, setWsId] = useState(props.wsId);
-	useEffect(() => {
-		getTempsByWeatherStation(props.wsId).then((res) => {
-			if (res) {
-				const cut_labels = Object.keys(res.data).map((label) => {
-					return format(new Date(label), "hh:mm dd/MM");
-				});
-				setTemp(Object.values(res.data));
-
-				setLabel(cut_labels);
-			} else {
-				//err
-			}
-		});
-	}, []);
-
-	const handleOnClick = (id) => {
-		props.onWsIdChange(id);
-		getTempsByWeatherStation(props.wsId).then((res) => {
-			if (res.status === 200) {
-				console.log(res);
-				const cut_labels = Object.keys(res.data).map((label) => {
-					return format(new Date(label), "hh:mm dd/MM");
-				});
-				setTemp(Object.values(res.data));
-
-				setLabel(cut_labels);
-			} else {
-				console.log(res);
-			}
-		});
-	};
-
-	return (
-		<Card className="card-chart">
-			<CardHeader>
-				<Row>
-					<Col className="text-left" sm="6">
-						<h5 className="card-category">
-							Temperature (Celcius) + HeatIndex (Celcius)
-						</h5>
-						<CardTitle tag="h2">
-							Temperature: {temps[temps.length - 1]} °C
-						</CardTitle>
-					</Col>
-					<Col sm="6">
-						<ButtonGroup
-							className="btn-group-toggle float-right"
-							data-toggle="buttons">
-							<Button
+  const labels = props.labels;
+  const temps = props.temperatures;
+  const heatIndex = props.heatIndex;
+  const humidity = props.humidity;
+  console.log(props, "asdasdasdas");
+  const handleOnClick = (id) => {
+    if (props.wsId != id) {
+      props.onWsIdChange(id);
+    }
+  };
+  let lastTemp = temps ? temps[temps.length - 1] : "Data missing";
+  let lastHeatIndex = heatIndex
+    ? heatIndex[heatIndex.length - 1]
+    : "Data missing";
+  let lastHumidity = humidity ? humidity[humidity.length - 1] : "Data missing";
+  return (
+    <Card className="card-chart">
+      <CardHeader>
+        <Row>
+          <Col className="text-left" sm="6">
+            <h5 className="card-category">
+              Temperature (Celcius) + HeatIndex (Celcius)
+            </h5>
+            <CardTitle tag="h2">
+              Temperature: {lastTemp} °C | Heat Index: {lastHeatIndex} °C
+            </CardTitle>
+          </Col>
+          <Col sm="6">
+            <ButtonGroup
+              className="btn-group-toggle float-right"
+              data-toggle="buttons"
+            >
+              {/* <Button
 								tag="label"
 								className={classNames("btn-simple", {
 									active: props.wsId === 1,
@@ -88,52 +66,65 @@ const BigCardComponent = (props) => {
 								<span className="d-block d-sm-none">
 									<i className="tim-icons icon-single-02" />
 								</span>
-							</Button>
-							<Button
-								color="info"
-								id="1"
-								size="sm"
-								tag="label"
-								className={classNames("btn-simple", {
-									active: props.wsId === 2,
-								})}
-								onClick={() => handleOnClick(2)}>
-								<input className="d-none" name="options" type="radio" />
-								<span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-									Purchases
-								</span>
-								<span className="d-block d-sm-none">
-									<i className="tim-icons icon-gift-2" />
-								</span>
-							</Button>
-							<Button
-								color="info"
-								id="2"
-								size="sm"
-								tag="label"
-								className={classNames("btn-simple", {
-									active: props.wsId === 3,
-								})}
-								onClick={() => handleOnClick(3)}>
-								<input className="d-none" name="options" type="radio" />
-								<span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-									Sessions
-								</span>
-								<span className="d-block d-sm-none">
-									<i className="tim-icons icon-tap-02" />
-								</span>
-							</Button>
-						</ButtonGroup>
-					</Col>
-				</Row>
-			</CardHeader>
-			<CardBody>
-				<TemperatureChartComponent
-					temps={temps}
-					labels={labels}></TemperatureChartComponent>
-			</CardBody>
-		</Card>
-	);
+							</Button> */}
+              <PeopleButtonComponent
+                wsId={1}
+                handleOnClick={handleOnClick}
+                text={"Киро"}
+				active={props.wsId}
+				
+              />
+              <PeopleButtonComponent
+                wsId={2}
+                handleOnClick={handleOnClick}
+                text={"Мишо"}
+				active={props.wsId}
+              />{" "}
+              <PeopleButtonComponent
+                wsId={3}
+                handleOnClick={handleOnClick}
+                text={"Крис"}
+				active={props.wsId}
+              />{" "}
+              <PeopleButtonComponent
+                wsId={4}
+                handleOnClick={handleOnClick}
+                text={"Злато"}
+				active={props.wsId}
+              />{" "}
+              <PeopleButtonComponent
+                wsId={5}
+                handleOnClick={handleOnClick}
+                text={"Лудия"}
+				active={props.wsId}
+              />
+            </ButtonGroup>
+          </Col>
+        </Row>
+      </CardHeader>
+      <CardBody>
+        <TemperatureChartComponent
+          temperatures={temps}
+          labels={labels}
+          heatIndex={heatIndex}
+        ></TemperatureChartComponent>
+      </CardBody>
+      <CardHeader>
+        <Row>
+          <Col className="text-left" sm="6">
+            <h5 className="card-category">Humidity (%)</h5>
+            <CardTitle tag="h2">Humidity: {lastHumidity} %</CardTitle>
+          </Col>
+        </Row>
+      </CardHeader>
+      <CardBody>
+        <HumidityChartComponent
+          humidity={humidity}
+          labels={labels}
+        ></HumidityChartComponent>
+      </CardBody>
+    </Card>
+  );
 };
 
 BigCardComponent.propTypes = {};
