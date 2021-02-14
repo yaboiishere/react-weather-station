@@ -1,11 +1,11 @@
 import axios from "axios";
-import actioncable from 'actioncable';
+import actioncable from "actioncable";
 // const BASE_URL = "http://localhost:4000";
 const BASE_URL = "https://weather-station-server.herokuapp.com";
-const WS_URL = "http://localhost:4000/cable"
-// const WS_URL = "https://weather-station-server.herokuapp.com/cable"
-export const CableApp = {}
-CableApp.cable = actioncable.createConsumer(WS_URL)
+// const WS_URL = "http://localhost:4000/cable"
+const WS_URL = "https://weather-station-server.herokuapp.com/cable";
+export const CableApp = {};
+CableApp.cable = actioncable.createConsumer(WS_URL);
 // axios.interceptors.request.use(async function (config) {
 // 	const { token } = await persistToken();
 // 	console.log("interceptor", token);
@@ -17,48 +17,48 @@ CableApp.cable = actioncable.createConsumer(WS_URL)
 // });
 
 axios.interceptors.response.use(
-	(response) => {
-		return response;
-	},
-	(error) => {
-		const status = error.response.status;
-		return Promise.reject({
-			status,
-		});
-	}
+  (response) => {
+    return response;
+  },
+  (error) => {
+    const status = error.response.status;
+    return Promise.reject({
+      status,
+    });
+  }
 );
 
 const persistToken = async () => {
-	const persistedAuth = await JSON.parse(localStorage.getItem("persist:root"));
-	return (await JSON.parse(persistedAuth.auth)) || "";
+  const persistedAuth = await JSON.parse(localStorage.getItem("persist:root"));
+  return (await JSON.parse(persistedAuth.auth)) || "";
 };
 
 export async function getAllDataByWeatherStation(id) {
-	const options = {
-		method: "POST",
-		url: `${BASE_URL}/getAll?weatherStation=${id}&timeSpan=6.hours.ago`,
-		mode: "no-cors",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		json: true,
-	};
-	return axios(options)
-		.then((res) => res)
-		.catch((err) => err);
+  const options = {
+    method: "POST",
+    url: `${BASE_URL}/getAll?weatherStation=${id}&timeSpan=6.hours.ago`,
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    json: true,
+  };
+  return axios(options)
+    .then((res) => res)
+    .catch((err) => err);
 }
 
 export async function getTempsByWeatherStation(id) {
-	const options = {
-		method: "POST",
-		url: `/getTemp?weatherStation=${id}&timeSpan=6.hours.ago`,
-		mode: "no-cors",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		json: true,
-	};
-	return axios(options)
-		.then((res) => res)
-		.catch((err) => err);
+  const options = {
+    method: "POST",
+    url: `/getTemp?weatherStation=${id}&timeSpan=6.hours.ago`,
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    json: true,
+  };
+  return axios(options)
+    .then((res) => res)
+    .catch((err) => err);
 }
