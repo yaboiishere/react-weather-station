@@ -71,7 +71,7 @@ const Dashboard = (props) => {
     CableApp.room = CableApp.cable.subscriptions.create(
       {
         channel: "ClientChannel",
-        wsId: wsId,
+        room: wsId,
       },
       {
         received: (res) => {
