@@ -18,9 +18,9 @@ const AdditionalInfo = (props) => {
 
   return (
     <Card>
-      <CardHeader>
+      {/* <CardHeader>
         <CardTitle tag="h4">Additional Info</CardTitle>
-      </CardHeader>
+      </CardHeader> */}
       <CardBody>
         <Table className="tablesorter" responsive>
           <thead className="text-primary">
