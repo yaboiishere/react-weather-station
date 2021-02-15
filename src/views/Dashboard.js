@@ -1,15 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { getAllDataByWeatherStation, CableApp } from "../helpers/api";
 // reactstrap components
-import { Row, Col } from "reactstrap";
-import { BigCardComponent } from "../components/Card/BigCardComponent.js";
-import PressureChart from "components/Chart/PressureChartComponent";
-import VoltageChart from "components/Chart/VoltageChartComponent";
-import DewPointChart from "components/Chart/DewPointChartComponent";
-import AdditionalInfo from "components/Card/AdditionalInfoComponent";
-
+import WebSocketComponent from "components/WebSocketComponent";
+import WebSocketCharts from "components/Card/WebSocketChartsComponent";
 const Dashboard = (props) => {
-  const [wsId, setWsId] = useState(1);
+  const [wsId, setWsId] = useState(3);
   const [wsData, setWsData] = useState({
     temperatures: [],
     heatIndex: [],
@@ -22,6 +17,7 @@ const Dashboard = (props) => {
     tendInWords: [],
     zambrettisWords: [],
   });
+  const [rerender, setRerender] = useState(false);
   const handleWsIdChange = useCallback((id) => {
     getAllDataByWeatherStation(id).then((res) => {
       let data = getData(res.data);
@@ -46,8 +42,14 @@ const Dashboard = (props) => {
       );
     });
   };
+  const updateWsData = (data) => {
+    console.log(data, "data");
+    setWsData(data);
+    console.log(wsData, "wsData");
+    setRerender(!rerender);
+  };
   const getData = (data) => {
-    return data.reduce((acc, val) => {
+    let newData = data.reduce((acc, val) => {
       for (const [key, value] of Object.entries(val)) {
         if (key != "id" && key != "weatherStation") {
           if (acc[key] == undefined) {
@@ -60,81 +62,31 @@ const Dashboard = (props) => {
       acc.labels = formatDateArr(acc.created_at);
       return acc;
     }, {});
+    setWsData(newData);
+    return newData;
   };
   useEffect(() => {
     getAllDataByWeatherStation(wsId).then((res) => {
       let data = getData(res.data);
 
       setWsData(data);
-      console.log(data, "all data");
+      console.log(wsData, "all data");
     });
-    CableApp.room = CableApp.cable.subscriptions.create(
-      {
-        channel: "ClientChannel",
-        room: wsId,
-      },
-      {
-        received: (res) => {
-          let newData = {};
-          for (const [key, value] of Object.entries(res)) {
-            newData = { ...newData };
-            newData[key] = wsData[key].shift().push(value);
-          }
-          newData.labels = formatDateArr(newData.created_at);
-          setWsData(newData);
-          console.log(newData);
-        },
-      }
-    );
   }, []);
   return (
     <>
-      <div className="content">
-        <Row>
-          <Col xs="12">
-            <BigCardComponent
-              wsId={wsId}
-              onWsIdChange={handleWsIdChange}
-              temperatures={wsData?.temperatures}
-              heatIndex={wsData?.heatIndex}
-              labels={wsData?.labels}
-              humidity={wsData?.humidity}
-            ></BigCardComponent>
-          </Col>
-        </Row>
-        <Row>
-          <Col lg="4">
-            <PressureChart
-              labels={wsData?.labels}
-              relative={wsData?.relativePressure}
-              absolute={wsData?.absolutePressure}
-            ></PressureChart>
-          </Col>
-          <Col lg="4">
-            <VoltageChart
-              labels={wsData?.labels}
-              voltage={wsData?.voltageBattery}
-            ></VoltageChart>
-          </Col>
-          <Col lg="4">
-            <DewPointChart
-              labels={wsData?.labels}
-              dewPoint={wsData?.dewPoint}
-              dewPointSpread={wsData?.dewPointSpread}
-            ></DewPointChart>
-          </Col>
-        </Row>
-        <Row>
-          <Col lg="12" md="12">
-            <AdditionalInfo
-              labels={wsData?.labels}
-              accuracyInPercents={wsData?.accuracyInPercents}
-              tendInWords={wsData?.tendInWords}
-              zambrettisWords={wsData?.zambrettisWords}
-            ></AdditionalInfo>
-          </Col>
-        </Row>
-      </div>
+      <WebSocketComponent
+        wsId={wsId}
+        wsData={wsData}
+        formatDateArr={formatDateArr}
+        updateWsData={updateWsData}
+        CableApp={CableApp}
+      />
+      <WebSocketCharts
+        wsId={wsId}
+        wsData={wsData}
+        onWsIdChange={handleWsIdChange}
+      />
     </>
   );
 };
