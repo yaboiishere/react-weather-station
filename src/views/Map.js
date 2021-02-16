@@ -16,303 +16,102 @@
 
 */
 import React from "react";
-// react plugin used to create google maps
-import {
-  withScriptjs,
-  withGoogleMap,
-  GoogleMap,
-  Marker
-} from "react-google-maps";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { Row, Col, Card, CardHeader, CardBody } from "reactstrap";
+import "leaflet/dist/leaflet.css";
+import Leaflet from "leaflet";
 
-// reactstrap components
-import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
+const Map = () => {
+  Leaflet.Icon.Default.imagePath = "../node_modules/leaflet";
 
-const MapWrapper = withScriptjs(
-  withGoogleMap(props => (
-    <GoogleMap
-      defaultZoom={13}
-      defaultCenter={{ lat: 40.748817, lng: -73.985428 }}
-      defaultOptions={{
-        scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
-        styles: [
-          {
-            elementType: "geometry",
-            stylers: [
-              {
-                color: "#1d2c4d"
-              }
-            ]
-          },
-          {
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#8ec3b9"
-              }
-            ]
-          },
-          {
-            elementType: "labels.text.stroke",
-            stylers: [
-              {
-                color: "#1a3646"
-              }
-            ]
-          },
-          {
-            featureType: "administrative.country",
-            elementType: "geometry.stroke",
-            stylers: [
-              {
-                color: "#4b6878"
-              }
-            ]
-          },
-          {
-            featureType: "administrative.land_parcel",
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#64779e"
-              }
-            ]
-          },
-          {
-            featureType: "administrative.province",
-            elementType: "geometry.stroke",
-            stylers: [
-              {
-                color: "#4b6878"
-              }
-            ]
-          },
-          {
-            featureType: "landscape.man_made",
-            elementType: "geometry.stroke",
-            stylers: [
-              {
-                color: "#334e87"
-              }
-            ]
-          },
-          {
-            featureType: "landscape.natural",
-            elementType: "geometry",
-            stylers: [
-              {
-                color: "#023e58"
-              }
-            ]
-          },
-          {
-            featureType: "poi",
-            elementType: "geometry",
-            stylers: [
-              {
-                color: "#283d6a"
-              }
-            ]
-          },
-          {
-            featureType: "poi",
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#6f9ba5"
-              }
-            ]
-          },
-          {
-            featureType: "poi",
-            elementType: "labels.text.stroke",
-            stylers: [
-              {
-                color: "#1d2c4d"
-              }
-            ]
-          },
-          {
-            featureType: "poi.park",
-            elementType: "geometry.fill",
-            stylers: [
-              {
-                color: "#023e58"
-              }
-            ]
-          },
-          {
-            featureType: "poi.park",
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#3C7680"
-              }
-            ]
-          },
-          {
-            featureType: "road",
-            elementType: "geometry",
-            stylers: [
-              {
-                color: "#304a7d"
-              }
-            ]
-          },
-          {
-            featureType: "road",
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#98a5be"
-              }
-            ]
-          },
-          {
-            featureType: "road",
-            elementType: "labels.text.stroke",
-            stylers: [
-              {
-                color: "#1d2c4d"
-              }
-            ]
-          },
-          {
-            featureType: "road.highway",
-            elementType: "geometry",
-            stylers: [
-              {
-                color: "#2c6675"
-              }
-            ]
-          },
-          {
-            featureType: "road.highway",
-            elementType: "geometry.fill",
-            stylers: [
-              {
-                color: "#9d2a80"
-              }
-            ]
-          },
-          {
-            featureType: "road.highway",
-            elementType: "geometry.stroke",
-            stylers: [
-              {
-                color: "#9d2a80"
-              }
-            ]
-          },
-          {
-            featureType: "road.highway",
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#b0d5ce"
-              }
-            ]
-          },
-          {
-            featureType: "road.highway",
-            elementType: "labels.text.stroke",
-            stylers: [
-              {
-                color: "#023e58"
-              }
-            ]
-          },
-          {
-            featureType: "transit",
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#98a5be"
-              }
-            ]
-          },
-          {
-            featureType: "transit",
-            elementType: "labels.text.stroke",
-            stylers: [
-              {
-                color: "#1d2c4d"
-              }
-            ]
-          },
-          {
-            featureType: "transit.line",
-            elementType: "geometry.fill",
-            stylers: [
-              {
-                color: "#283d6a"
-              }
-            ]
-          },
-          {
-            featureType: "transit.station",
-            elementType: "geometry",
-            stylers: [
-              {
-                color: "#3a4762"
-              }
-            ]
-          },
-          {
-            featureType: "water",
-            elementType: "geometry",
-            stylers: [
-              {
-                color: "#0e1626"
-              }
-            ]
-          },
-          {
-            featureType: "water",
-            elementType: "labels.text.fill",
-            stylers: [
-              {
-                color: "#4e6d70"
-              }
-            ]
-          }
-        ]
-      }}
-    >
-      <Marker position={{ lat: 40.748817, lng: -73.985428 }} />
-    </GoogleMap>
-  ))
-);
-
-class Map extends React.Component {
-  render() {
-    return (
-      <>
-        <div className="content">
-          <Row>
-            <Col md="12">
-              <Card className="card-plain">
-                <CardHeader>Google Maps</CardHeader>
-                <CardBody>
-                  <div
-                    id="map"
-                    className="map"
-                    style={{ position: "relative", overflow: "hidden" }}
-                  >
-                    <MapWrapper
-                      googleMapURL="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"
-                      loadingElement={<div style={{ height: `100%` }} />}
-                      containerElement={<div style={{ height: `100%` }} />}
-                      mapElement={<div style={{ height: `100%` }} />}
-                    />
-                  </div>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-        </div>
-      </>
-    );
-  }
-}
+  delete Leaflet.Icon.Default.prototype._getIconUrl;
+  Leaflet.Icon.Default.mergeOptions({
+    iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+    iconUrl: require("leaflet/dist/images/marker-icon.png"),
+    shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+  });
+  // position we will use later
+  const position = [43.2238, 27.9071];
+  // add marker to the map
+  const marker1 = [43.2286, 27.88983];
+  const marker2 = [43.22193, 27.92269];
+  const marker3 = [43.22804, 27.8856];
+  const marker4 = [43.237995, 27.884];
+  const marker5 = [43.22333, 27.9253];
+  return (
+    <div className="content">
+      <Row>
+        <Col md="12">
+          <Card className="card-plain">
+            <CardHeader>Locations of all weather stations</CardHeader>
+            <CardBody>
+              <MapContainer
+                style={{
+                  position: "relative",
+                  overflow: "hidden",
+                  height: "800px",
+                }}
+                className="map"
+                id="map"
+                center={position}
+                zoom={14}
+                scrollWheelZoom={false}
+              >
+                <TileLayer
+                  attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker position={marker1}>
+                  <Popup>
+                    <b>WS 1</b>
+                    <br />
+                    Ул. Вяра
+                    <br />
+                    Варна
+                  </Popup>
+                </Marker>
+                <Marker position={marker2}>
+                  <Popup>
+                    <b>WS 2</b>
+                    <br />
+                    Ул. Никола Козлев
+                    <br />
+                    Варна
+                  </Popup>
+                </Marker>
+                <Marker position={marker3}>
+                  <Popup>
+                    <b>WS 3</b>
+                    <br />
+                    Ул. Младежка
+                    <br />
+                    Варна
+                  </Popup>
+                </Marker>
+                <Marker position={marker4}>
+                  <Popup>
+                    <b>WS 4</b>
+                    <br />
+                    ул. Цар Светослав Тертер
+                    <br />
+                    Варна
+                  </Popup>
+                </Marker>
+                <Marker position={marker5}>
+                  <Popup>
+                    <b>WS 5</b>
+                    <br />
+                    ул. Дубровник
+                    <br /> Варна"
+                  </Popup>
+                </Marker>
+              </MapContainer>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </div>
+  );
+};
 
 export default Map;
