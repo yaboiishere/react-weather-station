@@ -29,6 +29,8 @@ import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 import routes from "routes.js";
 
 import logo from "assets/img/react-logo.png";
+import { Dashboard } from "views/Dashboard";
+import Map from "views/Map"
 
 var ps;
 
@@ -39,6 +41,7 @@ class Admin extends React.Component {
       backgroundColor: "blue",
       sidebarOpened:
         document.documentElement.className.indexOf("nav-open") !== -1,
+      timeSpan: "6.hours.ago"
     };
   }
   componentDidMount() {
@@ -77,21 +80,6 @@ class Admin extends React.Component {
     document.documentElement.classList.toggle("nav-open");
     this.setState({ sidebarOpened: !this.state.sidebarOpened });
   };
-  getRoutes = (routes) => {
-    return routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      } else {
-        return null;
-      }
-    });
-  };
   handleBgClick = (color) => {
     this.setState({ backgroundColor: color });
   };
@@ -107,12 +95,18 @@ class Admin extends React.Component {
     }
     return "Brand";
   };
+  handleTimeSpanChange = (event) =>{
+    this.setState({
+      timeSpan: event.target.value
+    })
+  }
   render() {
     return (
       <>
         <div className="wrapper">
           <Sidebar
             {...this.props}
+            handleTimeSpanChange = {this.handleTimeSpanChange}
             routes={routes}
             bgColor={this.state.backgroundColor}
             logo={{
@@ -134,8 +128,15 @@ class Admin extends React.Component {
               sidebarOpened={this.state.sidebarOpened}
             /> */}
             <Switch>
-              {this.getRoutes(routes)}
-              <Redirect from="*" to="/admin/dashboard" />
+              <Route
+                path={"/admin/dashboard"}
+                render={(props) =>(<Dashboard {...props} timeSpan={this.state.timeSpan}/>)}
+                key={0}/>
+              <Route
+                path={"/admin/map"}
+                render={(props) =>(<Map {...props}/>)}
+                key={1}/>
+              <Redirect from="*" to="/dashboard" />
             </Switch>
             {
               // we don't want the Footer to be rendered on map page

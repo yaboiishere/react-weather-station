@@ -26,6 +26,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 
 // reactstrap components
 import { Nav, NavLink as ReactstrapNavLink } from "reactstrap";
+import TextField from "@material-ui/core/TextField";
 
 var ps;
 
@@ -33,7 +34,37 @@ class Sidebar extends React.Component {
   constructor(props) {
     super(props);
     this.activeRoute.bind(this);
+    this.props = {
+      ...this.props,
+    };
+    console.log(props);
   }
+  timeSpanSelect = [
+    {
+      value: "30.minutes.ago",
+      label: "30 min",
+    },
+    {
+      value: "1.hour.ago",
+      label: "1 hour",
+    },
+    {
+      value: "3.hours.ago",
+      label: "3 hours",
+    },
+    {
+      value: "6.hours.ago",
+      label: "6 Hours",
+    },
+    {
+      value: "12.hours.ago",
+      label: "12 hours",
+    },
+    {
+      value: "24.hours.ago",
+      label: "24 hours",
+    },
+  ];
   // verifies if routeName is the one active (in browser input)
   activeRoute(routeName) {
     return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
@@ -42,7 +73,7 @@ class Sidebar extends React.Component {
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(this.refs.sidebar, {
         suppressScrollX: true,
-        suppressScrollY: false
+        suppressScrollY: false,
       });
     }
   }
@@ -137,6 +168,27 @@ class Sidebar extends React.Component {
                 </li>
               );
             })}
+            <TextField
+              id="outlined-basic"
+              select
+              label="Time Span"
+              name="time_span"
+              variant="outlined"
+              value={this.timeSpanSelect.value}
+              SelectProps={{
+                native: true,
+              }}
+              onChange={this.props.handleTimeSpanChange}
+              className="footer"
+              style={{marginTop: "291%"}}
+              fullWidth
+            >
+              {this.timeSpanSelect.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </TextField>
           </Nav>
         </div>
       </div>
@@ -147,7 +199,7 @@ class Sidebar extends React.Component {
 Sidebar.defaultProps = {
   rtlActive: false,
   bgColor: "primary",
-  routes: [{}]
+  routes: [{}],
 };
 
 Sidebar.propTypes = {
@@ -166,8 +218,8 @@ Sidebar.propTypes = {
     // the text of the logo
     text: PropTypes.node,
     // the image src of the logo
-    imgSrc: PropTypes.string
-  })
+    imgSrc: PropTypes.string,
+  }),
 };
 
 export default Sidebar;

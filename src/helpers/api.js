@@ -33,10 +33,11 @@ const persistToken = async () => {
   return (await JSON.parse(persistedAuth.auth)) || "";
 };
 
-export async function getAllDataByWeatherStation(id) {
+export async function getAllDataByWeatherStation(id, timeSpan) {
+  console.log(timeSpan)
   const options = {
     method: "POST",
-    url: `${BASE_URL}/getAll?weatherStation=${id}&timeSpan=6.hours.ago`,
+    url: `${BASE_URL}/getAll?weatherStation=${id}&timeSpan=${timeSpan}`,
     mode: "no-cors",
     headers: {
       "Content-Type": "application/json",
@@ -48,10 +49,10 @@ export async function getAllDataByWeatherStation(id) {
     .catch((err) => err);
 }
 
-export async function getTempsByWeatherStation(id) {
+export async function getTempsByWeatherStation(id, timeSpan) {
   const options = {
     method: "POST",
-    url: `/getTemp?weatherStation=${id}&timeSpan=6.hours.ago`,
+    url: `/getTemp?weatherStation=${id}&timeSpan=${timeSpan}`,
     mode: "no-cors",
     headers: {
       "Content-Type": "application/json",

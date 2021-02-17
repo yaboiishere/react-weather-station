@@ -4,6 +4,8 @@ import { getAllDataByWeatherStation, CableApp } from "../helpers/api";
 import WebSocketComponent from "components/WebSocketComponent";
 import WebSocketCharts from "components/Card/WebSocketChartsComponent";
 const Dashboard = (props) => {
+  console.log(props)
+  const timeSpan = props.timeSpan
   const [wsId, setWsId] = useState(3);
   const [wsData, setWsData] = useState({
     temperatures: [],
@@ -19,7 +21,7 @@ const Dashboard = (props) => {
   });
   const [rerender, setRerender] = useState(false);
   const handleWsIdChange = useCallback((id) => {
-    getAllDataByWeatherStation(id).then((res) => {
+    getAllDataByWeatherStation(id, timeSpan).then((res) => {
       let data = getData(res.data);
 
       // setWsData({...data, wsId: id})
@@ -66,13 +68,13 @@ const Dashboard = (props) => {
     return newData;
   };
   useEffect(() => {
-    getAllDataByWeatherStation(wsId).then((res) => {
+    getAllDataByWeatherStation(wsId, timeSpan).then((res) => {
       let data = getData(res.data);
 
       setWsData(data);
       console.log(wsData, "all data");
     });
-  }, []);
+  }, [timeSpan]);
   return (
     <>
       <WebSocketComponent
