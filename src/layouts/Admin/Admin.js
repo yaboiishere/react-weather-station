@@ -19,9 +19,9 @@ import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
+import Cookies from 'universal-cookie';
 
 // core components
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
@@ -35,13 +35,16 @@ import Map from "views/Map"
 var ps;
 
 class Admin extends React.Component {
+  cookies = new Cookies();
+
   constructor(props) {
+
     super(props);
     this.state = {
       backgroundColor: "blue",
       sidebarOpened:
         document.documentElement.className.indexOf("nav-open") !== -1,
-      timeSpan: "6.hours.ago"
+      timeSpan: this.cookies.get('timeSpan') ? this.cookies.get('timeSpan') : "6.hours.ago" 
     };
   }
   componentDidMount() {
@@ -96,16 +99,19 @@ class Admin extends React.Component {
     return "Brand";
   };
   handleTimeSpanChange = (event) =>{
+    this.cookies.set('timeSpan', event.target.value, {path: '/'})
     this.setState({
       timeSpan: event.target.value
     })
   }
   render() {
+    
     return (
       <>
         <div className="wrapper">
           <Sidebar
             {...this.props}
+            timeSpan = {this.state.timeSpan}
             handleTimeSpanChange = {this.handleTimeSpanChange}
             routes={routes}
             bgColor={this.state.backgroundColor}

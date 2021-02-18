@@ -1,6 +1,5 @@
-import { AccuracyChart } from "components/Chart/AccuracyChartComponent";
 import React from "react";
-import { Card, CardHeader, CardBody, CardTitle, Table } from "reactstrap";
+import { Card, CardBody, Table } from "reactstrap";
 const AdditionalInfo = (props) => {
   const zambrettisWords = props.zambrettisWords;
   const accuracyInPercents = props.accuracyInPercents;

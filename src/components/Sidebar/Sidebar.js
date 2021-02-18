@@ -34,10 +34,6 @@ class Sidebar extends React.Component {
   constructor(props) {
     super(props);
     this.activeRoute.bind(this);
-    this.props = {
-      ...this.props,
-    };
-    console.log(props);
   }
   timeSpanSelect = [
     {
@@ -174,7 +170,7 @@ class Sidebar extends React.Component {
               label="Time Span"
               name="time_span"
               variant="outlined"
-              value={this.timeSpanSelect.value}
+              value={this.props.timeSpan}
               SelectProps={{
                 native: true,
               }}

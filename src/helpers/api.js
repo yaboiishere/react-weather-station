@@ -28,13 +28,12 @@ axios.interceptors.response.use(
   }
 );
 
-const persistToken = async () => {
-  const persistedAuth = await JSON.parse(localStorage.getItem("persist:root"));
-  return (await JSON.parse(persistedAuth.auth)) || "";
-};
+// const persistToken = async () => {
+//   const persistedAuth = await JSON.parse(localStorage.getItem("persist:root"));
+//   return (await JSON.parse(persistedAuth.auth)) || "";
+// };
 
 export async function getAllDataByWeatherStation(id, timeSpan) {
-  console.log(timeSpan)
   const options = {
     method: "POST",
     url: `${BASE_URL}/getAll?weatherStation=${id}&timeSpan=${timeSpan}`,

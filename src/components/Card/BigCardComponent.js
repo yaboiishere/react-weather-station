@@ -17,9 +17,8 @@ const BigCardComponent = (props) => {
   const temps = props.temperatures;
   const heatIndex = props.heatIndex;
   const humidity = props.humidity;
-  console.log(props, "asdasdasdas");
   const handleOnClick = (id) => {
-    if (props.wsId != id) {
+    if (props.wsId !== id) {
       props.onWsIdChange(id);
     }
   };

@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { getAllDataByWeatherStation, CableApp } from "../helpers/api";
+import { useCookies } from 'react-cookie';
 // reactstrap components
 import WebSocketComponent from "components/WebSocketComponent";
 import WebSocketCharts from "components/Card/WebSocketChartsComponent";
 const Dashboard = (props) => {
-  console.log(props)
   const timeSpan = props.timeSpan
-  const [wsId, setWsId] = useState(3);
+  const [cookies, setCookie] = useCookies(['wsId', 'timeSpan']);
+  const wsIdCookie = cookies.wsId ? parseInt(cookies.wsId) :  1
+  const [wsId, setWsId] = useState(wsIdCookie);
   const [wsData, setWsData] = useState({
     temperatures: [],
     heatIndex: [],
@@ -20,16 +22,14 @@ const Dashboard = (props) => {
     zambrettisWords: [],
   });
   const [rerender, setRerender] = useState(false);
-  const handleWsIdChange = useCallback((id) => {
+  const handleWsIdChange = (id) => {
     getAllDataByWeatherStation(id, timeSpan).then((res) => {
       let data = getData(res.data);
-
-      // setWsData({...data, wsId: id})
       setWsId(id);
       setWsData(data);
-      console.log(data, "all data", wsId);
+      setCookie('wsId', id)
     });
-  });
+  };
   const formatDateArr = (dates) => {
     return dates.map((label) => {
       let date = new Date(label);
@@ -45,16 +45,15 @@ const Dashboard = (props) => {
     });
   };
   const updateWsData = (data) => {
-    console.log(data, "data");
     setWsData(data);
-    console.log(wsData, "wsData");
+    console.log(wsData, "updateWsData");
     setRerender(!rerender);
   };
   const getData = (data) => {
     let newData = data.reduce((acc, val) => {
       for (const [key, value] of Object.entries(val)) {
-        if (key != "id" && key != "weatherStation") {
-          if (acc[key] == undefined) {
+        if (key !== "id" && key !== "weatherStation") {
+          if (acc[key] === undefined) {
             acc[key] = [value];
           } else {
             acc[key] = [...acc[key], value];
@@ -72,8 +71,9 @@ const Dashboard = (props) => {
       let data = getData(res.data);
 
       setWsData(data);
-      console.log(wsData, "all data");
+      console.log(wsData, "Use Effect");
     });
+  // eslint-disable-next-line
   }, [timeSpan]);
   return (
     <>

@@ -4,7 +4,6 @@ import { Line } from "react-chartjs-2";
 const HumidityChart = (props) => {
   const humidity = props.humidity;
   const labels = props.labels;
-  console.log(props);
   let options = {
     maintainAspectRatio: false,
     legend: {
