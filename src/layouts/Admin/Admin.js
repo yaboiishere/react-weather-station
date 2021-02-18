@@ -28,7 +28,8 @@ import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
 
-import logo from "assets/img/react-logo.png";
+import logo from "assets/img/kiro.ico";
+// import logo from "assets/img/react-logo.png";
 import { Dashboard } from "views/Dashboard";
 import Map from "views/Map"
 
