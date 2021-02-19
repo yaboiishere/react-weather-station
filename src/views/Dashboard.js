@@ -50,6 +50,7 @@ const Dashboard = (props) => {
     setRerender(!rerender);
   };
   const getData = (data) => {
+    if(!data)return [] 
     let newData = data.reduce((acc, val) => {
       for (const [key, value] of Object.entries(val)) {
         if (key !== "id" && key !== "weatherStation") {
