@@ -62,3 +62,22 @@ export async function getTempsByWeatherStation(id, timeSpan) {
     .then((res) => res)
     .catch((err) => err);
 }
+
+export async function login(email, password){
+  const options = {
+    method: "POST",
+    url: `/authenticate`,
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data:{
+      email: email,
+      password: password
+    },
+    json: true,
+  };
+  return axios(options)
+    .then((res) => res)
+    .catch((err) => err);
+}
