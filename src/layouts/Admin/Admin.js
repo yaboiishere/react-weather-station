@@ -45,7 +45,8 @@ class Admin extends React.Component {
       backgroundColor: "blue",
       sidebarOpened:
         document.documentElement.className.indexOf("nav-open") !== -1,
-      timeSpan: this.cookies.get('timeSpan') ? this.cookies.get('timeSpan') : "6.hours.ago" 
+      timeSpan: this.cookies.get('timeSpan') ? this.cookies.get('timeSpan') : "6.hours.ago",
+      loggedIn: this.cookies.get('loggedIn') ? this.cookies.get('loggedIn') : false
     };
   }
   componentDidMount() {
@@ -122,6 +123,9 @@ class Admin extends React.Component {
               imgSrc: logo,
             }}
             toggleSidebar={this.toggleSidebar}
+            open={this.state.open}
+            setOpen={this.setOpen}
+            loggedIn={this.state.loggedIn}
           />
           <div
             className="main-panel"

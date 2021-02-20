@@ -27,13 +27,16 @@ import PerfectScrollbar from "perfect-scrollbar";
 // reactstrap components
 import { Nav, NavLink as ReactstrapNavLink } from "reactstrap";
 import TextField from "@material-ui/core/TextField";
-
+import LoginModal from "components/Material/LoginModalComponent"
 var ps;
 
 class Sidebar extends React.Component {
   constructor(props) {
     super(props);
     this.activeRoute.bind(this);
+    this.state = {
+      open: false
+    }
   }
   timeSpanSelect = [
     {
@@ -81,6 +84,9 @@ class Sidebar extends React.Component {
   linkOnClick = () => {
     document.documentElement.classList.remove("nav-open");
   };
+  setOpen = (open) => {
+    this.setState({open: open})
+  }
   render() {
     const { bgColor, routes, rtlActive, logo } = this.props;
     let logoImg = null;
@@ -164,6 +170,7 @@ class Sidebar extends React.Component {
                 </li>
               );
             })}
+            <LoginModal open={this.state.open} setOpen={this.setOpen} loggedIn={this.props.loggedIn} />
             <TextField
               id="outlined-basic"
               select
@@ -176,7 +183,7 @@ class Sidebar extends React.Component {
               }}
               onChange={this.props.handleTimeSpanChange}
               className="footer"
-              style={{marginTop: "291%"}}
+              style={{ marginTop: "291%" }}
               fullWidth
             >
               {this.timeSpanSelect.map((option) => (
