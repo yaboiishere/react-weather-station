@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   paper: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "#27293D",
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 export default function LoginModal(props) {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [cookies, setCookie] = useCookies(["token", "loggedIn"]);
-
+  const classes = useStyles();
   const handleClose = () => {
     props.setOpen(false);
   };
@@ -57,12 +57,14 @@ export default function LoginModal(props) {
         open={props.open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
-        onEnter={sendLogin}
+        classes={classes}
       >
         <DialogTitle id="form-dialog-title">Login</DialogTitle>
         <form method="POST">
           <DialogContent>
             <TextField
+              InputLabelProps={{ style: { color: "#D0D0D4" } }}
+              InputProps={{ style: { color: "#D0D0D4" } }}
               autoFocus
               margin="dense"
               id="email"
@@ -73,6 +75,8 @@ export default function LoginModal(props) {
               required
             />
             <TextField
+              InputLabelProps={{ style: { color: "#D0D0D4" } }}
+              InputProps={{ style: { color: "#D0D0D4" } }}
               margin="dense"
               id="password"
               label="Password"

@@ -197,6 +197,23 @@ class Sidebar extends React.Component {
                 </a>
               </li>
             ) : (
+              <li></li>
+            )}
+            {this.props.loggedIn ? (
+              <li
+                onClick={() => {
+                  this.props.setLoggedIn(false);
+                }}
+              >
+                <a className="nav-link">
+                  <i
+                    className="tim-icons icon-button-power"
+                    aria-hidden="true"
+                  />
+                  <p>Logout</p>
+                </a>
+              </li>
+            ) : (
               <li onClick={() => this.setOpen(true)}>
                 <a className="nav-link">
                   <i className="tim-icons icon-upload" />
