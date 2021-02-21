@@ -1,21 +1,42 @@
 import axios from "axios";
 import actioncable from "actioncable";
-// const BASE_URL = "http://localhost:4000";
-const BASE_URL = "https://weather-station-server.herokuapp.com";
-// const WS_URL = "http://localhost:4000/cable"
-const WS_URL = "https://weather-station-server.herokuapp.com/cable";
+import Cookies from "universal-cookie";
+
+const BASE_URL = "http://localhost:4000";
+// const BASE_URL = "https://weather-station-server.herokuapp.com";
+const WS_URL = "http://localhost:4000/cable";
+// const WS_URL = "https://weather-station-server.herokuapp.com/cable";
 export const CableApp = {};
 CableApp.cable = actioncable.createConsumer(WS_URL);
-// axios.interceptors.request.use(async function (config) {
-// 	const { token } = await persistToken();
-// 	console.log("interceptor", token);
-// 	if (token != null) {
-// 		config.headers.Authorization = `Bearer ${token}`;
-// 	}
-// 	config.url = `${BASE_URL}${config.url}`;
-// 	return config;
-// });
 
+const cookies = new Cookies();
+
+axios.interceptors.request.use(async function (config) {
+  const token = await persistToken();
+  console.log("interceptor", token);
+  if (token != null) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  config.url = `${BASE_URL}${config.url}`;
+  return config;
+});
+
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    const status = error.response.status;
+    if (status === 401) {
+      cookies.remove("token", { path: "/" });
+      cookies.remove("loggedIn", { path: "/" });
+      window.location.href = `${process.env.URL || "http://localhost:3000/"}`;
+    }
+    return Promise.reject({
+      status,
+    });
+  }
+);
 axios.interceptors.response.use(
   (response) => {
     return response;
@@ -28,15 +49,14 @@ axios.interceptors.response.use(
   }
 );
 
-// const persistToken = async () => {
-//   const persistedAuth = await JSON.parse(localStorage.getItem("persist:root"));
-//   return (await JSON.parse(persistedAuth.auth)) || "";
-// };
+const persistToken = async () => {
+  return (await cookies.get("token")) || "";
+};
 
 export async function getAllDataByWeatherStation(id, timeSpan) {
   const options = {
     method: "POST",
-    url: `${BASE_URL}/getAll?weatherStation=${id}&timeSpan=${timeSpan}`,
+    url: `/getAll?weatherStation=${id}&timeSpan=${timeSpan}`,
     mode: "no-cors",
     headers: {
       "Content-Type": "application/json",
@@ -63,7 +83,7 @@ export async function getTempsByWeatherStation(id, timeSpan) {
     .catch((err) => err);
 }
 
-export async function login(email, password){
+export async function login(email, password) {
   const options = {
     method: "POST",
     url: `/authenticate`,
@@ -71,9 +91,9 @@ export async function login(email, password){
     headers: {
       "Content-Type": "application/json",
     },
-    data:{
+    data: {
       email: email,
-      password: password
+      password: password,
     },
     json: true,
   };

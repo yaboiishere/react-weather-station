@@ -27,11 +27,8 @@ import PerfectScrollbar from "perfect-scrollbar";
 // reactstrap components
 import { Nav, NavLink as ReactstrapNavLink } from "reactstrap";
 import TextField from "@material-ui/core/TextField";
-<<<<<<< HEAD
 import LoginModal from "components/Material/LoginModalComponent";
-=======
-import LoginModal from "components/Material/LoginModalComponent"
->>>>>>> 8a306e4c12e0cb21e207a4d2e4d9d5302bbf95b3
+
 var ps;
 
 class Sidebar extends React.Component {
@@ -39,13 +36,8 @@ class Sidebar extends React.Component {
     super(props);
     this.activeRoute.bind(this);
     this.state = {
-<<<<<<< HEAD
       open: false,
     };
-=======
-      open: false
-    }
->>>>>>> 8a306e4c12e0cb21e207a4d2e4d9d5302bbf95b3
   }
   timeSpanSelect = [
     {
@@ -94,13 +86,8 @@ class Sidebar extends React.Component {
     document.documentElement.classList.remove("nav-open");
   };
   setOpen = (open) => {
-<<<<<<< HEAD
     this.setState({ open: open });
   };
-=======
-    this.setState({open: open})
-  }
->>>>>>> 8a306e4c12e0cb21e207a4d2e4d9d5302bbf95b3
   render() {
     const { bgColor, routes, rtlActive, logo } = this.props;
     let logoImg = null;
@@ -195,11 +182,10 @@ class Sidebar extends React.Component {
                 </li>
               );
             })}
-<<<<<<< HEAD
             {this.props.loggedIn ? (
               <li
                 onClick={() => {
-                  this.state.logout();
+                  this.props.setLoggedIn(false);
                 }}
               >
                 <a className="nav-link">
@@ -211,7 +197,7 @@ class Sidebar extends React.Component {
                 </a>
               </li>
             ) : (
-              <li activeClassName="active" onClick={() => this.setOpen(true)}>
+              <li onClick={() => this.setOpen(true)}>
                 <a className="nav-link">
                   <i className="tim-icons icon-upload" />
                   <p>Login</p>
@@ -222,31 +208,8 @@ class Sidebar extends React.Component {
               open={this.state.open}
               setOpen={this.setOpen}
               loggedIn={this.props.loggedIn}
+              setLoggedIn={this.props.setLoggedIn}
             />
-=======
-            <LoginModal open={this.state.open} setOpen={this.setOpen} loggedIn={this.props.loggedIn} />
-            <TextField
-              id="outlined-basic"
-              select
-              label="Time Span"
-              name="time_span"
-              variant="outlined"
-              value={this.props.timeSpan}
-              SelectProps={{
-                native: true,
-              }}
-              onChange={this.props.handleTimeSpanChange}
-              className="footer"
-              style={{ marginTop: "291%" }}
-              fullWidth
-            >
-              {this.timeSpanSelect.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </TextField>
->>>>>>> 8a306e4c12e0cb21e207a4d2e4d9d5302bbf95b3
           </Nav>
           <TextField
             id="outlined-basic"

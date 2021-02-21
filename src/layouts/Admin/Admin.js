@@ -19,7 +19,7 @@ import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
-import Cookies from 'universal-cookie';
+import Cookies from "universal-cookie";
 
 // core components
 import Footer from "components/Footer/Footer.js";
@@ -31,7 +31,7 @@ import routes from "routes.js";
 import logo from "assets/img/kiro.ico";
 // import logo from "assets/img/react-logo.png";
 import { Dashboard } from "views/Dashboard";
-import Map from "views/Map"
+import Map from "views/Map";
 
 var ps;
 
@@ -39,14 +39,17 @@ class Admin extends React.Component {
   cookies = new Cookies();
 
   constructor(props) {
-
     super(props);
     this.state = {
       backgroundColor: "blue",
       sidebarOpened:
         document.documentElement.className.indexOf("nav-open") !== -1,
-      timeSpan: this.cookies.get('timeSpan') ? this.cookies.get('timeSpan') : "6.hours.ago",
-      loggedIn: this.cookies.get('loggedIn') ? this.cookies.get('loggedIn') : false
+      timeSpan: this.cookies.get("timeSpan")
+        ? this.cookies.get("timeSpan")
+        : "6.hours.ago",
+      loggedIn: this.cookies.get("loggedIn")
+        ? this.cookies.get("loggedIn")
+        : false,
     };
   }
   componentDidMount() {
@@ -100,21 +103,27 @@ class Admin extends React.Component {
     }
     return "Brand";
   };
-  handleTimeSpanChange = (event) =>{
-    this.cookies.set('timeSpan', event.target.value, {path: '/'})
+  handleTimeSpanChange = (event) => {
+    this.cookies.set("timeSpan", event.target.value, { path: "/" });
     this.setState({
-      timeSpan: event.target.value
-    })
-  }
+      timeSpan: event.target.value,
+    });
+  };
+  setLoggedIn = (loggedIn) => {
+    if (loggedIn === false) {
+      this.cookies.remove("token", { path: "/" });
+      this.cookies.remove("loggedIn", { path: "/" });
+    }
+    this.setState({ loggedIn: loggedIn });
+  };
   render() {
-    
     return (
       <>
         <div className="wrapper">
           <Sidebar
             {...this.props}
-            timeSpan = {this.state.timeSpan}
-            handleTimeSpanChange = {this.handleTimeSpanChange}
+            timeSpan={this.state.timeSpan}
+            handleTimeSpanChange={this.handleTimeSpanChange}
             routes={routes}
             bgColor={this.state.backgroundColor}
             logo={{
@@ -126,6 +135,7 @@ class Admin extends React.Component {
             open={this.state.open}
             setOpen={this.setOpen}
             loggedIn={this.state.loggedIn}
+            setLoggedIn={this.setLoggedIn}
           />
           <div
             className="main-panel"
@@ -141,12 +151,16 @@ class Admin extends React.Component {
             <Switch>
               <Route
                 path={"/admin/dashboard"}
-                render={(props) =>(<Dashboard {...props} timeSpan={this.state.timeSpan}/>)}
-                key={0}/>
+                render={(props) => (
+                  <Dashboard {...props} timeSpan={this.state.timeSpan} />
+                )}
+                key={0}
+              />
               <Route
                 path={"/admin/map"}
-                render={(props) =>(<Map {...props}/>)}
-                key={1}/>
+                render={(props) => <Map {...props} />}
+                key={1}
+              />
               <Redirect from="*" to="/dashboard" />
             </Switch>
             {
