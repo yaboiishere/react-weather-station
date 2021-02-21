@@ -23,10 +23,18 @@ const useStyles = makeStyles((theme) => ({
 export default function LoginModal(props) {
   const classes = useStyles();
 
+<<<<<<< HEAD
+=======
+  const handleOpen = () => {
+    props.setOpen(true);
+  };
+
+>>>>>>> 8a306e4c12e0cb21e207a4d2e4d9d5302bbf95b3
   const handleClose = () => {
     props.setOpen(false);
   };
   const logout = () => {
+<<<<<<< HEAD
     console.log(logout);
   };
   return (
@@ -51,5 +59,55 @@ export default function LoginModal(props) {
         </div>
       </Fade>
     </Modal>
+=======
+      console.log(logout)
+  }
+  const
+  return (
+    <div>
+      {props.loggedIn ? (
+        <Button
+          to=""
+          className="nav-link"
+          activeClassName="active"
+        //   onClick={logout()}
+        >
+          {/* <i className={prop.icon} /> */}
+          <p>Logout</p>
+        </Button>
+      ) : (
+        <Button
+          to=""
+          className="nav-link"
+          activeClassName="active"
+          onClick={() => handleOpen(true)}
+        >
+          {/* <i className={prop.icon} /> */}
+          <p>Login</p>
+        </Button>
+      )}
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={props.open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={props.open}>
+          <div className={classes.paper}>
+            <h2 id="transition-modal-title">Transition modal</h2>
+            <p id="transition-modal-description">
+              react-transition-group animates me.
+            </p>
+          </div>
+        </Fade>
+      </Modal>
+    </div>
+>>>>>>> 8a306e4c12e0cb21e207a4d2e4d9d5302bbf95b3
   );
 }
