@@ -19,22 +19,21 @@ import { Dashboard } from "views/Dashboard.js";
 import Map from "views/Map.js";
 
 var routes = [
-	{
-		path: "/dashboard",
-		name: "Dashboard",
-		rtlName: "لوحة القيادة",
-		icon: "tim-icons icon-chart-pie-36",
-		component: Dashboard,
-		layout: "/admin",
-	},
-	{
-		path: "/map",
-		name: "Map",
-		rtlName: "خرائط",
-		icon: "tim-icons icon-pin",
-		component: Map,
-		layout: "/admin",
-	},
-
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    rtlName: "لوحة القيادة",
+    icon: "tim-icons icon-chart-pie-36",
+    component: Dashboard,
+    layout: "/admin",
+  },
+  {
+    path: "/map",
+    name: "Map",
+    rtlName: "خرائط",
+    icon: "tim-icons icon-square-pin",
+    component: Map,
+    layout: "/admin",
+  },
 ];
 export default routes;

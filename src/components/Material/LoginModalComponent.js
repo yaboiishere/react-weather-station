@@ -23,61 +23,33 @@ const useStyles = makeStyles((theme) => ({
 export default function LoginModal(props) {
   const classes = useStyles();
 
-  const handleOpen = () => {
-    props.setOpen(true);
-  };
-
   const handleClose = () => {
     props.setOpen(false);
   };
   const logout = () => {
-      console.log(logout)
-  }
-  const
+    console.log(logout);
+  };
   return (
-    <div>
-      {props.loggedIn ? (
-        <Button
-          to=""
-          className="nav-link"
-          activeClassName="active"
-        //   onClick={logout()}
-        >
-          {/* <i className={prop.icon} /> */}
-          <p>Logout</p>
-        </Button>
-      ) : (
-        <Button
-          to=""
-          className="nav-link"
-          activeClassName="active"
-          onClick={() => handleOpen(true)}
-        >
-          {/* <i className={prop.icon} /> */}
-          <p>Login</p>
-        </Button>
-      )}
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={props.open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={props.open}>
-          <div className={classes.paper}>
-            <h2 id="transition-modal-title">Transition modal</h2>
-            <p id="transition-modal-description">
-              react-transition-group animates me.
-            </p>
-          </div>
-        </Fade>
-      </Modal>
-    </div>
+    <Modal
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      className={classes.modal}
+      open={props.open}
+      onClose={handleClose}
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      BackdropProps={{
+        timeout: 500,
+      }}
+    >
+      <Fade in={props.open}>
+        <div className={classes.paper}>
+          <h2 id="transition-modal-title">Transition modal</h2>
+          <p id="transition-modal-description">
+            react-transition-group animates me.
+          </p>
+        </div>
+      </Fade>
+    </Modal>
   );
 }

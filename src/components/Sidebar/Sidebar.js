@@ -27,7 +27,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 // reactstrap components
 import { Nav, NavLink as ReactstrapNavLink } from "reactstrap";
 import TextField from "@material-ui/core/TextField";
-import LoginModal from "components/Material/LoginModalComponent"
+import LoginModal from "components/Material/LoginModalComponent";
 var ps;
 
 class Sidebar extends React.Component {
@@ -35,8 +35,8 @@ class Sidebar extends React.Component {
     super(props);
     this.activeRoute.bind(this);
     this.state = {
-      open: false
-    }
+      open: false,
+    };
   }
   timeSpanSelect = [
     {
@@ -85,8 +85,8 @@ class Sidebar extends React.Component {
     document.documentElement.classList.remove("nav-open");
   };
   setOpen = (open) => {
-    this.setState({open: open})
-  }
+    this.setState({ open: open });
+  };
   render() {
     const { bgColor, routes, rtlActive, logo } = this.props;
     let logoImg = null;
@@ -138,9 +138,20 @@ class Sidebar extends React.Component {
         );
       }
     }
+    const timeSpanStyle = {
+      position: "absolute",
+      height: "40px",
+      left: 0,
+      width: "100%",
+      top: 917 - 56,
+    };
     return (
-      <div className="sidebar" data={bgColor}>
-        <div className="sidebar-wrapper" ref="sidebar">
+      <div className="sidebar" data={bgColor} ref={this.sidebar}>
+        <div
+          className="sidebar-wrapper"
+          ref="sidebar"
+          style={{ height: "100%" }}
+        >
           {logoImg !== null || logoText !== null ? (
             <div className="logo">
               {logoImg}
@@ -170,29 +181,55 @@ class Sidebar extends React.Component {
                 </li>
               );
             })}
-            <LoginModal open={this.state.open} setOpen={this.setOpen} loggedIn={this.props.loggedIn} />
-            <TextField
-              id="outlined-basic"
-              select
-              label="Time Span"
-              name="time_span"
-              variant="outlined"
-              value={this.props.timeSpan}
-              SelectProps={{
-                native: true,
-              }}
-              onChange={this.props.handleTimeSpanChange}
-              className="footer"
-              style={{ marginTop: "291%" }}
-              fullWidth
-            >
-              {this.timeSpanSelect.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </TextField>
+            {this.props.loggedIn ? (
+              <li
+                onClick={() => {
+                  this.state.logout();
+                }}
+              >
+                <a className="nav-link">
+                  <i
+                    className="tim-icons icon-button-power"
+                    aria-hidden="true"
+                  />
+                  <p>Logout</p>
+                </a>
+              </li>
+            ) : (
+              <li activeClassName="active" onClick={() => this.setOpen(true)}>
+                <a className="nav-link">
+                  <i className="tim-icons icon-upload" />
+                  <p>Login</p>
+                </a>
+              </li>
+            )}
+            <LoginModal
+              open={this.state.open}
+              setOpen={this.setOpen}
+              loggedIn={this.props.loggedIn}
+            />
           </Nav>
+          <TextField
+            id="outlined-basic"
+            select
+            label="Time Span"
+            name="time_span"
+            variant="outlined"
+            value={this.props.timeSpan}
+            SelectProps={{
+              native: true,
+            }}
+            onChange={this.props.handleTimeSpanChange}
+            className="footer"
+            style={timeSpanStyle}
+            fullWidth
+          >
+            {this.timeSpanSelect.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </TextField>
         </div>
       </div>
     );
