@@ -19,7 +19,7 @@ import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
-import Cookies from 'universal-cookie';
+import Cookies from "universal-cookie";
 
 // core components
 import Footer from "components/Footer/Footer.js";
@@ -31,7 +31,7 @@ import routes from "routes.js";
 import logo from "assets/img/kiro.ico";
 // import logo from "assets/img/react-logo.png";
 import { Dashboard } from "views/Dashboard";
-import Map from "views/Map"
+import Map from "views/Map";
 
 var ps;
 
@@ -39,13 +39,14 @@ class Admin extends React.Component {
   cookies = new Cookies();
 
   constructor(props) {
-
     super(props);
     this.state = {
       backgroundColor: "blue",
       sidebarOpened:
         document.documentElement.className.indexOf("nav-open") !== -1,
-      timeSpan: this.cookies.get('timeSpan') ? this.cookies.get('timeSpan') : "6.hours.ago" 
+      timeSpan: this.cookies.get("timeSpan")
+        ? this.cookies.get("timeSpan")
+        : "6.hours.ago",
     };
   }
   componentDidMount() {
@@ -99,25 +100,24 @@ class Admin extends React.Component {
     }
     return "Brand";
   };
-  handleTimeSpanChange = (event) =>{
-    this.cookies.set('timeSpan', event.target.value, {path: '/'})
+  handleTimeSpanChange = (event) => {
+    this.cookies.set("timeSpan", event.target.value, { path: "/" });
     this.setState({
-      timeSpan: event.target.value
-    })
-  }
+      timeSpan: event.target.value,
+    });
+  };
   render() {
-    
     return (
       <>
         <div className="wrapper">
           <Sidebar
             {...this.props}
-            timeSpan = {this.state.timeSpan}
-            handleTimeSpanChange = {this.handleTimeSpanChange}
+            timeSpan={this.state.timeSpan}
+            handleTimeSpanChange={this.handleTimeSpanChange}
             routes={routes}
             bgColor={this.state.backgroundColor}
             logo={{
-              outterLink: "https://www.creative-tim.com/",
+              innerLink: "/",
               text: "Weather Stations",
               imgSrc: logo,
             }}
@@ -136,14 +136,25 @@ class Admin extends React.Component {
             /> */}
             <Switch>
               <Route
-                path={"/admin/dashboard"}
-                render={(props) =>(<Dashboard {...props} timeSpan={this.state.timeSpan}/>)}
-                key={0}/>
+                path={"/dashboard"}
+                render={(props) => (
+                  <Dashboard {...props} timeSpan={this.state.timeSpan} />
+                )}
+                key={0}
+              />
               <Route
-                path={"/admin/map"}
-                render={(props) =>(<Map {...props}/>)}
-                key={1}/>
-              <Redirect from="*" to="/dashboard" />
+                path={"/map"}
+                render={(props) => <Map {...props} />}
+                key={1}
+              />
+              <Route
+                path={"/"}
+                render={(props) => (
+                  <Dashboard {...props} timeSpan={this.state.timeSpan} />
+                )}
+                key={2}
+              />
+              <Redirect from="*" to="/" />
             </Switch>
             {
               // we don't want the Footer to be rendered on map page

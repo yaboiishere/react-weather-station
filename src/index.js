@@ -18,11 +18,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
-import { Router, Route, Switch, Redirect } from "react-router-dom";
-import { CookiesProvider } from 'react-cookie';
+import { HashRouter, Route, Switch } from "react-router-dom";
+import { CookiesProvider } from "react-cookie";
 
 import AdminLayout from "layouts/Admin/Admin.js";
-import RTLLayout from "layouts/RTL/RTL.js";
 
 import "assets/scss/black-dashboard-react.scss";
 import "assets/css/app.css";
@@ -32,13 +31,11 @@ const hist = createBrowserHistory();
 
 ReactDOM.render(
   <CookiesProvider>
-    <Router history={hist}>
+    <HashRouter history={hist}>
       <Switch>
-        <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-        <Route path="/rtl" render={(props) => <RTLLayout {...props} />} />
-        <Redirect from="/" to="/admin/dashboard" />
+        <Route path="/" render={(props) => <AdminLayout {...props} />} />
       </Switch>
-    </Router>
+    </HashRouter>
   </CookiesProvider>,
   document.getElementById("root")
 );

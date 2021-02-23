@@ -63,6 +63,13 @@ class Sidebar extends React.Component {
   ];
   // verifies if routeName is the one active (in browser input)
   activeRoute(routeName) {
+    console.log(this.props.location.pathname);
+    if (routeName === "/dashboard") {
+      return this.props.location.pathname.indexOf(routeName) > -1 ||
+        this.props.location.pathname === "/"
+        ? "active"
+        : "";
+    }
     return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   }
   componentDidMount() {
@@ -148,7 +155,7 @@ class Sidebar extends React.Component {
                 <li
                   className={
                     this.activeRoute(prop.path) +
-                    (prop.pro ? " active-pro" : "")
+                    (!prop.pro ? " active-pro" : "")
                   }
                   key={key}
                 >
@@ -176,7 +183,7 @@ class Sidebar extends React.Component {
               }}
               onChange={this.props.handleTimeSpanChange}
               className="footer"
-              style={{marginTop: "291%"}}
+              style={{ marginTop: "291%" }}
               fullWidth
             >
               {this.timeSpanSelect.map((option) => (
