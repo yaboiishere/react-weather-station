@@ -1,31 +1,31 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9371d2a2ff1a164b54332ad5c9b8ceb2",
+    "revision": "27ebdc62d0c529fbaa4f5465a455b7b2",
     "url": "https://yaboiishere.github.io/react-weather-station/index.html"
   },
   {
-    "revision": "21956d1f1ff0910b082f",
+    "revision": "33819c6c4584cd8fa225",
     "url": "https://yaboiishere.github.io/react-weather-station/static/css/2.9dc0205a.chunk.css"
   },
   {
-    "revision": "9186f71ab95c0ccd9e1d",
+    "revision": "75b06c0025587b5b16ff",
     "url": "https://yaboiishere.github.io/react-weather-station/static/css/main.be4560e1.chunk.css"
   },
   {
-    "revision": "21956d1f1ff0910b082f",
-    "url": "https://yaboiishere.github.io/react-weather-station/static/js/2.eead9bb4.chunk.js"
+    "revision": "33819c6c4584cd8fa225",
+    "url": "https://yaboiishere.github.io/react-weather-station/static/js/2.efe31d5b.chunk.js"
   },
   {
     "revision": "d0f829109e7eb8de9e90fa2c9d14cc3a",
-    "url": "https://yaboiishere.github.io/react-weather-station/static/js/2.eead9bb4.chunk.js.LICENSE.txt"
+    "url": "https://yaboiishere.github.io/react-weather-station/static/js/2.efe31d5b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "9186f71ab95c0ccd9e1d",
-    "url": "https://yaboiishere.github.io/react-weather-station/static/js/main.f5553cac.chunk.js"
+    "revision": "75b06c0025587b5b16ff",
+    "url": "https://yaboiishere.github.io/react-weather-station/static/js/main.f7cace9b.chunk.js"
   },
   {
     "revision": "dc192b57bfed2afd6be1ea5558f17255",
-    "url": "https://yaboiishere.github.io/react-weather-station/static/js/main.f5553cac.chunk.js.LICENSE.txt"
+    "url": "https://yaboiishere.github.io/react-weather-station/static/js/main.f7cace9b.chunk.js.LICENSE.txt"
   },
   {
     "revision": "b54c1ed8000ed988dfdd",
