@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/react-weather-station/static/css/main.f77959ee.chunk.css",
+    "main.js": "/react-weather-station/static/js/main.27e39c90.chunk.js",
+    "main.js.map": "/react-weather-station/static/js/main.27e39c90.chunk.js.map",
+    "runtime-main.js": "/react-weather-station/static/js/runtime-main.52b66c13.js",
+    "runtime-main.js.map": "/react-weather-station/static/js/runtime-main.52b66c13.js.map",
+    "static/css/2.9dc0205a.chunk.css": "/react-weather-station/static/css/2.9dc0205a.chunk.css",
+    "static/js/2.36fcd42e.chunk.js": "/react-weather-station/static/js/2.36fcd42e.chunk.js",
+    "static/js/2.36fcd42e.chunk.js.map": "/react-weather-station/static/js/2.36fcd42e.chunk.js.map",
+    "index.html": "/react-weather-station/index.html",
+    "precache-manifest.940609db349a6fe7e845d3dae337fe7a.js": "/react-weather-station/precache-manifest.940609db349a6fe7e845d3dae337fe7a.js",
+    "service-worker.js": "/react-weather-station/service-worker.js",
+    "static/css/2.9dc0205a.chunk.css.map": "/react-weather-station/static/css/2.9dc0205a.chunk.css.map",
+    "static/css/main.f77959ee.chunk.css.map": "/react-weather-station/static/css/main.f77959ee.chunk.css.map",
+    "static/js/2.36fcd42e.chunk.js.LICENSE.txt": "/react-weather-station/static/js/2.36fcd42e.chunk.js.LICENSE.txt",
+    "static/js/main.27e39c90.chunk.js.LICENSE.txt": "/react-weather-station/static/js/main.27e39c90.chunk.js.LICENSE.txt",
+    "static/media/anime3.png": "/react-weather-station/static/media/anime3.bd6820f1.png",
+    "static/media/kiro.ico": "/react-weather-station/static/media/kiro.2efe5d41.ico",
+    "static/media/nucleo-icons.css": "/react-weather-station/static/media/nucleo.f0b489a5.woff",
+    "static/media/react-logo.png": "/react-weather-station/static/media/react-logo.eb6be414.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.52b66c13.js",
+    "static/css/2.9dc0205a.chunk.css",
+    "static/js/2.36fcd42e.chunk.js",
+    "static/css/main.f77959ee.chunk.css",
+    "static/js/main.27e39c90.chunk.js"
+  ]
+}
