@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "https://yaboiishere.github.io/react-weather-station/static/css/main.be4560e1.chunk.css",
-    "main.js": "https://yaboiishere.github.io/react-weather-station/static/js/main.124956f8.chunk.js",
-    "main.js.map": "https://yaboiishere.github.io/react-weather-station/static/js/main.124956f8.chunk.js.map",
+    "main.js": "https://yaboiishere.github.io/react-weather-station/static/js/main.f5553cac.chunk.js",
+    "main.js.map": "https://yaboiishere.github.io/react-weather-station/static/js/main.f5553cac.chunk.js.map",
     "runtime-main.js": "https://yaboiishere.github.io/react-weather-station/static/js/runtime-main.808cace3.js",
     "runtime-main.js.map": "https://yaboiishere.github.io/react-weather-station/static/js/runtime-main.808cace3.js.map",
     "static/css/2.9dc0205a.chunk.css": "https://yaboiishere.github.io/react-weather-station/static/css/2.9dc0205a.chunk.css",
-    "static/js/2.7a802050.chunk.js": "https://yaboiishere.github.io/react-weather-station/static/js/2.7a802050.chunk.js",
-    "static/js/2.7a802050.chunk.js.map": "https://yaboiishere.github.io/react-weather-station/static/js/2.7a802050.chunk.js.map",
+    "static/js/2.eead9bb4.chunk.js": "https://yaboiishere.github.io/react-weather-station/static/js/2.eead9bb4.chunk.js",
+    "static/js/2.eead9bb4.chunk.js.map": "https://yaboiishere.github.io/react-weather-station/static/js/2.eead9bb4.chunk.js.map",
     "index.html": "https://yaboiishere.github.io/react-weather-station/index.html",
-    "precache-manifest.bfce3dead0bf8e1f4941b4434249864d.js": "https://yaboiishere.github.io/react-weather-station/precache-manifest.bfce3dead0bf8e1f4941b4434249864d.js",
+    "precache-manifest.04b81263934e6af6358bd640df390ad1.js": "https://yaboiishere.github.io/react-weather-station/precache-manifest.04b81263934e6af6358bd640df390ad1.js",
     "service-worker.js": "https://yaboiishere.github.io/react-weather-station/service-worker.js",
     "static/css/2.9dc0205a.chunk.css.map": "https://yaboiishere.github.io/react-weather-station/static/css/2.9dc0205a.chunk.css.map",
     "static/css/main.be4560e1.chunk.css.map": "https://yaboiishere.github.io/react-weather-station/static/css/main.be4560e1.chunk.css.map",
-    "static/js/2.7a802050.chunk.js.LICENSE.txt": "https://yaboiishere.github.io/react-weather-station/static/js/2.7a802050.chunk.js.LICENSE.txt",
-    "static/js/main.124956f8.chunk.js.LICENSE.txt": "https://yaboiishere.github.io/react-weather-station/static/js/main.124956f8.chunk.js.LICENSE.txt",
+    "static/js/2.eead9bb4.chunk.js.LICENSE.txt": "https://yaboiishere.github.io/react-weather-station/static/js/2.eead9bb4.chunk.js.LICENSE.txt",
+    "static/js/main.f5553cac.chunk.js.LICENSE.txt": "https://yaboiishere.github.io/react-weather-station/static/js/main.f5553cac.chunk.js.LICENSE.txt",
     "static/media/anime3.png": "https://yaboiishere.github.io/react-weather-station/static/media/anime3.bd6820f1.png",
     "static/media/kiro.ico": "https://yaboiishere.github.io/react-weather-station/static/media/kiro.2efe5d41.ico",
     "static/media/nucleo-icons.css": "https://yaboiishere.github.io/react-weather-station/static/media/nucleo.f0b489a5.woff",
@@ -23,8 +23,8 @@
   "entrypoints": [
     "static/js/runtime-main.808cace3.js",
     "static/css/2.9dc0205a.chunk.css",
-    "static/js/2.7a802050.chunk.js",
+    "static/js/2.eead9bb4.chunk.js",
     "static/css/main.be4560e1.chunk.css",
-    "static/js/main.124956f8.chunk.js"
+    "static/js/main.f5553cac.chunk.js"
   ]
 }
