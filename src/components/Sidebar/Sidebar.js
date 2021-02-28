@@ -69,6 +69,13 @@ class Sidebar extends React.Component {
   ];
   // verifies if routeName is the one active (in browser input)
   activeRoute(routeName) {
+    console.log(this.props.location.pathname);
+    if (routeName === "/dashboard") {
+      return this.props.location.pathname.indexOf(routeName) > -1 ||
+        this.props.location.pathname === "/"
+        ? "active"
+        : "";
+    }
     return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   }
   componentDidMount() {
@@ -171,7 +178,7 @@ class Sidebar extends React.Component {
                 <li
                   className={
                     this.activeRoute(prop.path) +
-                    (prop.pro ? " active-pro" : "")
+                    (!prop.pro ? " active-pro" : "")
                   }
                   key={key}
                 >
@@ -187,6 +194,7 @@ class Sidebar extends React.Component {
                 </li>
               );
             })}
+<<<<<<< HEAD
             {this.props.loggedIn ? (
               <li
                 onClick={() => {
@@ -240,6 +248,29 @@ class Sidebar extends React.Component {
             ) : (
               <></>
             )}
+=======
+            <TextField
+              id="outlined-basic"
+              select
+              label="Time Span"
+              name="time_span"
+              variant="outlined"
+              value={this.props.timeSpan}
+              SelectProps={{
+                native: true,
+              }}
+              onChange={this.props.handleTimeSpanChange}
+              className="footer"
+              style={{ marginTop: "291%" }}
+              fullWidth
+            >
+              {this.timeSpanSelect.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </TextField>
+>>>>>>> master
           </Nav>
           <TextField
             id="outlined-basic"

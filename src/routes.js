@@ -25,15 +25,34 @@ var routes = [
     rtlName: "لوحة القيادة",
     icon: "tim-icons icon-chart-pie-36",
     component: Dashboard,
+<<<<<<< HEAD
     layout: "/admin",
+=======
+    layout: "",
+>>>>>>> master
   },
   {
     path: "/map",
     name: "Map",
     rtlName: "خرائط",
+<<<<<<< HEAD
     icon: "tim-icons icon-square-pin",
     component: Map,
     layout: "/admin",
+=======
+    icon: "tim-icons icon-pin",
+    component: Map,
+    layout: "",
+  },
+  {
+    redirect: "/dashboard",
+    path: "/",
+    name: "Dashboard",
+    rtlName: "لوحة القيادة",
+    icon: "tim-icons icon-chart-pie-36",
+    component: Dashboard,
+    layout: "",
+>>>>>>> master
   },
 ];
 export default routes;
