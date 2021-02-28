@@ -197,7 +197,7 @@ class Sidebar extends React.Component {
             {this.props.loggedIn ? (
               <li
                 onClick={() => {
-                  this.props.setLoggedIn(false);
+                  this.setOpenManagement(true);
                 }}
               >
                 <a className="nav-link">
@@ -239,14 +239,11 @@ class Sidebar extends React.Component {
               loggedIn={this.props.loggedIn}
               setLoggedIn={this.props.setLoggedIn}
             />
-            {this.props.loggedIn ? (
-              <ManagementModal
-                open={this.state.openManagement}
-                setOpen={this.setOpenManagement}
-              />
-            ) : (
-              <></>
-            )}
+            <ManagementModal
+              open={this.state.openManagement}
+              setOpen={this.setOpenManagement}
+              loggedIn={this.props.loggedIn}
+            />
             <TextField
               id="outlined-basic"
               select

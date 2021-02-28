@@ -2,8 +2,8 @@ import axios from "axios";
 import actioncable from "actioncable";
 import Cookies from "universal-cookie";
 
-// const BASE_URL = "http://localhost:4000";
-const BASE_URL = "https://weather-station-server.herokuapp.com";
+const BASE_URL = "http://localhost:4000";
+// const BASE_URL = "https://weather-station-server.herokuapp.com";
 // const WS_URL = "http://localhost:4000/cable";
 const WS_URL = "https://weather-station-server.herokuapp.com/cable";
 export const CableApp = {};
@@ -110,6 +110,7 @@ export async function getPeople() {
     headers: {
       "Content-Type": "application/json",
     },
+    json: true,
   };
   return axios(options)
     .then((res) => res)
@@ -123,6 +124,7 @@ export async function getApprovedPeople() {
     headers: {
       "Content-Type": "application/json",
     },
+    json: true,
   };
   return axios(options)
     .then((res) => res)
@@ -136,6 +138,7 @@ export async function getUnapprovedPeople() {
     headers: {
       "Content-Type": "application/json",
     },
+    json: true,
   };
   return axios(options)
     .then((res) => res)

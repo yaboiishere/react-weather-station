@@ -10,11 +10,11 @@ import { getPeople } from "helpers/api";
 import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  //   modal: {
-  //     display: "flex",
-  //     alignItems: "center",
-  //     justifyContent: "center",
-  //   },
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   paper: {
     backgroundColor: "#27293D",
     border: "2px solid #000",
@@ -47,14 +47,14 @@ export default function ManagementModal(props) {
   useEffect(() => {
     getPeople().then((res) => {
       console.log(res);
-      if (res === 200) {
+      if (res.status === 200) {
         setPeople(res.data);
       }
     });
-  });
+  }, []);
   const peopleElements = people.map((person) => {
     return (
-      <Grid container>
+      <Grid container style={{ width: "100%" }}>
         <Grid item>
           <TextField
             id="ws_id"
@@ -81,8 +81,8 @@ export default function ManagementModal(props) {
         </Grid>
         <Grid item>
           <TextField
-            id="ws_id"
-            label="WS id:"
+            id="approved"
+            label="Approved:"
             value={person.approved}
             margin="normal"
             type="checkbox"
