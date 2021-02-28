@@ -28,6 +28,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 import { Nav, NavLink as ReactstrapNavLink } from "reactstrap";
 import TextField from "@material-ui/core/TextField";
 import LoginModal from "components/Material/LoginModalComponent";
+import ManagementModal from "components/Material/ManagementModalComponent";
 
 var ps;
 
@@ -36,7 +37,8 @@ class Sidebar extends React.Component {
     super(props);
     this.activeRoute.bind(this);
     this.state = {
-      open: false,
+      openLogin: false,
+      openManagement: false,
     };
   }
   timeSpanSelect = [
@@ -85,8 +87,11 @@ class Sidebar extends React.Component {
   linkOnClick = () => {
     document.documentElement.classList.remove("nav-open");
   };
-  setOpen = (open) => {
-    this.setState({ open: open });
+  setOpenLogin = (open) => {
+    this.setState({ openLogin: open });
+  };
+  setOpenManagement = (open) => {
+    this.setState({ openManagement: open });
   };
   render() {
     const { bgColor, routes, rtlActive, logo } = this.props;
@@ -193,7 +198,7 @@ class Sidebar extends React.Component {
                     className="tim-icons icon-button-power"
                     aria-hidden="true"
                   />
-                  <p>Logout</p>
+                  <p>Manage stations</p>
                 </a>
               </li>
             ) : (
@@ -214,7 +219,7 @@ class Sidebar extends React.Component {
                 </a>
               </li>
             ) : (
-              <li onClick={() => this.setOpen(true)}>
+              <li onClick={() => this.setOpenLogin(true)}>
                 <a className="nav-link">
                   <i className="tim-icons icon-upload" />
                   <p>Login</p>
@@ -222,11 +227,19 @@ class Sidebar extends React.Component {
               </li>
             )}
             <LoginModal
-              open={this.state.open}
-              setOpen={this.setOpen}
+              open={this.state.openLogin}
+              setOpen={this.setOpenLogin}
               loggedIn={this.props.loggedIn}
               setLoggedIn={this.props.setLoggedIn}
             />
+            {this.props.loggedIn ? (
+              <ManagementModal
+                open={this.state.openManagement}
+                setOpen={this.setOpenManagement}
+              />
+            ) : (
+              <></>
+            )}
           </Nav>
           <TextField
             id="outlined-basic"

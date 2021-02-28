@@ -101,3 +101,43 @@ export async function login(email, password) {
     .then((res) => res)
     .catch((err) => err);
 }
+
+export async function getPeople() {
+  const options = {
+    method: "GET",
+    url: `/people`,
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  return axios(options)
+    .then((res) => res)
+    .catch((err) => err);
+}
+export async function getApprovedPeople() {
+  const options = {
+    method: "GET",
+    url: `/approved`,
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  return axios(options)
+    .then((res) => res)
+    .catch((err) => err);
+}
+export async function getUnapprovedPeople() {
+  const options = {
+    method: "GET",
+    url: `/unapproved`,
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  return axios(options)
+    .then((res) => res)
+    .catch((err) => err);
+}
