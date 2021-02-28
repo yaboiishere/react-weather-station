@@ -194,7 +194,6 @@ class Sidebar extends React.Component {
                 </li>
               );
             })}
-<<<<<<< HEAD
             {this.props.loggedIn ? (
               <li
                 onClick={() => {
@@ -248,7 +247,6 @@ class Sidebar extends React.Component {
             ) : (
               <></>
             )}
-=======
             <TextField
               id="outlined-basic"
               select
@@ -270,7 +268,6 @@ class Sidebar extends React.Component {
                 </option>
               ))}
             </TextField>
->>>>>>> master
           </Nav>
           <TextField
             id="outlined-basic"

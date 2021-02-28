@@ -47,12 +47,9 @@ class Admin extends React.Component {
       timeSpan: this.cookies.get("timeSpan")
         ? this.cookies.get("timeSpan")
         : "6.hours.ago",
-<<<<<<< HEAD
       loggedIn: this.cookies.get("loggedIn")
         ? this.cookies.get("loggedIn")
         : false,
-=======
->>>>>>> master
     };
   }
   componentDidMount() {
@@ -112,7 +109,6 @@ class Admin extends React.Component {
       timeSpan: event.target.value,
     });
   };
-<<<<<<< HEAD
   setLoggedIn = (loggedIn) => {
     if (loggedIn === false) {
       this.cookies.remove("token", { path: "/" });
@@ -120,8 +116,6 @@ class Admin extends React.Component {
     }
     this.setState({ loggedIn: loggedIn });
   };
-=======
->>>>>>> master
   render() {
     return (
       <>
@@ -156,24 +150,12 @@ class Admin extends React.Component {
             /> */}
             <Switch>
               <Route
-<<<<<<< HEAD
-                path={"/admin/dashboard"}
-=======
                 path={"/dashboard"}
->>>>>>> master
                 render={(props) => (
                   <Dashboard {...props} timeSpan={this.state.timeSpan} />
                 )}
                 key={0}
               />
-<<<<<<< HEAD
-              <Route
-                path={"/admin/map"}
-                render={(props) => <Map {...props} />}
-                key={1}
-              />
-              <Redirect from="*" to="/dashboard" />
-=======
               <Route
                 path={"/map"}
                 render={(props) => <Map {...props} />}
@@ -187,7 +169,6 @@ class Admin extends React.Component {
                 key={2}
               />
               <Redirect from="*" to="/" />
->>>>>>> master
             </Switch>
             {
               // we don't want the Footer to be rendered on map page
