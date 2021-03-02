@@ -39,6 +39,7 @@ export default function ManagementModal(props) {
         console.log("error");
       }
     });
+    CableApp.room.unsubscribe();
     props.setOpen(false);
   };
   const onChangeUser = (event) => {
@@ -92,8 +93,21 @@ export default function ManagementModal(props) {
     setIsEditingUser(null);
   };
   const onEnter = () => {
+    CableApp.room = CableApp.cable.subscriptions.create(
+      {
+        channel: "ManagementChannel",
+        username: props.currentUser,
+      },
+      {
+        received: (res) => {
+          console.log(res);
+        },
+      }
+    );
     getLastLockUser().then((res) => {
       setLastLockUser(res.data.user);
+      console.log(res.data.user);
+      console.log(props.currentUser);
       if (
         res.data.user === props.currentUser ||
         res.data.user === "false" ||
@@ -110,17 +124,6 @@ export default function ManagementModal(props) {
         setPeople(sortedPeople);
       }
     });
-    CableApp.room = CableApp.cable.subscriptions.create(
-      {
-        channel: "ManagementChannel",
-        username: props.currentUser,
-      },
-      {
-        received: (res) => {
-          console.log(res);
-        },
-      }
-    );
   };
   const peopleElements = () => {
     return people.map((person, index) => {
@@ -218,7 +221,9 @@ export default function ManagementModal(props) {
           {locked ? (
             <div style={{ color: "#D0D0D4" }}>
               The data is being edited by{" "}
-              {lastLockUser === "false" ? props.currentUser : lastLockUser}
+              {lastLockUser === "false" || lastLockUser === "0"
+                ? props.currentUser
+                : lastLockUser}
             </div>
           ) : (
             ""
