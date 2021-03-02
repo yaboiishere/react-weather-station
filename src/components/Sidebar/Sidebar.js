@@ -201,10 +201,7 @@ class Sidebar extends React.Component {
                 }}
               >
                 <a className="nav-link">
-                  <i
-                    className="tim-icons icon-button-power"
-                    aria-hidden="true"
-                  />
+                  <i className="tim-icons icon-settings" aria-hidden="true" />
                   <p>Manage stations</p>
                 </a>
               </li>
