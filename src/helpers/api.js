@@ -33,7 +33,12 @@ axios.interceptors.response.use(
     if (status === 401) {
       cookies.remove("token", { path: "/" });
       cookies.remove("loggedIn", { path: "/" });
-      window.location.href = `${process.env.URL || "http://localhost:3000/"}`;
+
+      // window.location.href = `${process.env.URL || "http://localhost:3000/"}`;
+      window.location.href = `${
+        process.env.URL ||
+        " https://yaboiishere.github.io/react-weather-station/#/"
+      }`;
     }
     return Promise.reject({
       status,
