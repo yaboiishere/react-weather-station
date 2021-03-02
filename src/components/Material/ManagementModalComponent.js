@@ -94,7 +94,11 @@ export default function ManagementModal(props) {
   const onEnter = () => {
     getLastLockUser().then((res) => {
       setLastLockUser(res.data.user);
-      if (res.data.user === props.currentUser || res.data.user === "false") {
+      if (
+        res.data.user === props.currentUser ||
+        res.data.user === "false" ||
+        res.data.user === "0"
+      ) {
         setLocked(false);
       }
     });
