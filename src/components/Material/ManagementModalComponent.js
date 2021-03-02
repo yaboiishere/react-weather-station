@@ -106,8 +106,6 @@ export default function ManagementModal(props) {
     );
     getLastLockUser().then((res) => {
       setLastLockUser(res.data.user);
-      console.log(res.data.user);
-      console.log(props.currentUser);
       if (
         res.data.user === props.currentUser ||
         res.data.user === "false" ||

@@ -32,7 +32,6 @@ export default function LoginModal(props) {
   const onChange = (event) => {
     const { id, value } = event.target;
     setFormData({ ...formData, [id]: value });
-    console.log(formData);
   };
   const sendLogin = () => {
     login(formData.email, formData.password).then((res) => {
