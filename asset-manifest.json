@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/react-weather-station/static/css/main.08ee330b.chunk.css",
-    "main.js": "/react-weather-station/static/js/main.b74cc1cd.chunk.js",
-    "main.js.map": "/react-weather-station/static/js/main.b74cc1cd.chunk.js.map",
+    "main.js": "/react-weather-station/static/js/main.591e9804.chunk.js",
+    "main.js.map": "/react-weather-station/static/js/main.591e9804.chunk.js.map",
     "runtime-main.js": "/react-weather-station/static/js/runtime-main.52b66c13.js",
     "runtime-main.js.map": "/react-weather-station/static/js/runtime-main.52b66c13.js.map",
     "static/css/2.9dc0205a.chunk.css": "/react-weather-station/static/css/2.9dc0205a.chunk.css",
     "static/js/2.01d8d09a.chunk.js": "/react-weather-station/static/js/2.01d8d09a.chunk.js",
     "static/js/2.01d8d09a.chunk.js.map": "/react-weather-station/static/js/2.01d8d09a.chunk.js.map",
     "index.html": "/react-weather-station/index.html",
-    "precache-manifest.a8f074862b67f722164c95b7743b5463.js": "/react-weather-station/precache-manifest.a8f074862b67f722164c95b7743b5463.js",
+    "precache-manifest.b10b04737e8a81fb1e3db245109ea919.js": "/react-weather-station/precache-manifest.b10b04737e8a81fb1e3db245109ea919.js",
     "service-worker.js": "/react-weather-station/service-worker.js",
     "static/css/2.9dc0205a.chunk.css.map": "/react-weather-station/static/css/2.9dc0205a.chunk.css.map",
     "static/css/main.08ee330b.chunk.css.map": "/react-weather-station/static/css/main.08ee330b.chunk.css.map",
     "static/js/2.01d8d09a.chunk.js.LICENSE.txt": "/react-weather-station/static/js/2.01d8d09a.chunk.js.LICENSE.txt",
-    "static/js/main.b74cc1cd.chunk.js.LICENSE.txt": "/react-weather-station/static/js/main.b74cc1cd.chunk.js.LICENSE.txt",
+    "static/js/main.591e9804.chunk.js.LICENSE.txt": "/react-weather-station/static/js/main.591e9804.chunk.js.LICENSE.txt",
     "static/media/kiro.ico": "/react-weather-station/static/media/kiro.2efe5d41.ico",
     "static/media/nucleo-icons.css": "/react-weather-station/static/media/nucleo.f0b489a5.woff"
   },
@@ -23,6 +23,6 @@
     "static/css/2.9dc0205a.chunk.css",
     "static/js/2.01d8d09a.chunk.js",
     "static/css/main.08ee330b.chunk.css",
-    "static/js/main.b74cc1cd.chunk.js"
+    "static/js/main.591e9804.chunk.js"
   ]
 }
