@@ -10,11 +10,6 @@ import { login } from "helpers/api";
 import { useCookies } from "react-cookie";
 
 const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   paper: {
     backgroundColor: "#27293D",
     border: "2px solid #000",
@@ -25,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LoginModal(props) {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  // eslint-disable-next-line
   const [cookies, setCookie] = useCookies(["token", "loggedIn"]);
   const classes = useStyles();
   const handleClose = () => {

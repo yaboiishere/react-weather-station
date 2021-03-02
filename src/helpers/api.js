@@ -4,10 +4,13 @@ import Cookies from "universal-cookie";
 
 const BASE_URL = "http://localhost:4000";
 // const BASE_URL = "https://weather-station-server.herokuapp.com";
-// const WS_URL = "http://localhost:4000/cable";
-const WS_URL = "https://weather-station-server.herokuapp.com/cable";
+const WS_URL = "http://localhost:4000/cable";
+// const WS_URL = "https://weather-station-server.herokuapp.com/cable";
 export const CableApp = {};
 CableApp.cable = actioncable.createConsumer(WS_URL);
+
+export const ManagementApp = {};
+ManagementApp.cable = actioncable.createConsumer(WS_URL);
 
 const cookies = new Cookies();
 
@@ -138,6 +141,49 @@ export async function getUnapprovedPeople() {
     headers: {
       "Content-Type": "application/json",
     },
+    json: true,
+  };
+  return axios(options)
+    .then((res) => res)
+    .catch((err) => err);
+}
+export async function getCurrentUser() {
+  const options = {
+    method: "GET",
+    url: `/current_user`,
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    json: true,
+  };
+  return axios(options)
+    .then((res) => res)
+    .catch((err) => err);
+}
+export async function getLastLockUser() {
+  const options = {
+    method: "GET",
+    url: `/get_last_lock_user`,
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    json: true,
+  };
+  return axios(options)
+    .then((res) => res)
+    .catch((err) => err);
+}
+export async function updateLastLockUser(data) {
+  const options = {
+    method: "POST",
+    url: `/update_last_lock_user/`,
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: data,
     json: true,
   };
   return axios(options)

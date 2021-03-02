@@ -16,14 +16,17 @@ const WebSocketComponent = (props) => {
             if (key === "id" || key === "weatherStation" || key === "labels") {
             } else {
               //   acc = { ...acc };
-              props.wsData[key].push(value);
+              if (props.wsData[key]) {
+                props.wsData[key].push(value);
+              } else {
+                props.wsData[key] = [value];
+              }
             }
           }
           props.wsData.labels = props.formatDateArr(props.wsData.created_at);
           // console.log(props.wsData, "new props.wsData");
           props.updateWsData(props.wsData);
           console.log("web socket updated");
-
         },
       }
     );

@@ -239,11 +239,17 @@ class Sidebar extends React.Component {
               loggedIn={this.props.loggedIn}
               setLoggedIn={this.props.setLoggedIn}
             />
-            <ManagementModal
-              open={this.state.openManagement}
-              setOpen={this.setOpenManagement}
-              loggedIn={this.props.loggedIn}
-            />
+            {this.state.openManagement ? (
+              <ManagementModal
+                open={this.state.openManagement}
+                setOpen={this.setOpenManagement}
+                loggedIn={this.props.loggedIn}
+                currentUser={this.props.currentUser}
+              />
+            ) : (
+              <></>
+            )}
+
             <TextField
               id="outlined-basic"
               select
