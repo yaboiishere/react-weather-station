@@ -33,6 +33,8 @@ import logo from "assets/img/kiro.ico";
 import { Dashboard } from "views/Dashboard";
 import Map from "views/Map";
 
+import { getCurrentUser } from "helpers/api";
+
 var ps;
 
 class Admin extends React.Component {
@@ -47,6 +49,10 @@ class Admin extends React.Component {
       timeSpan: this.cookies.get("timeSpan")
         ? this.cookies.get("timeSpan")
         : "6.hours.ago",
+      loggedIn: this.cookies.get("loggedIn")
+        ? this.cookies.get("loggedIn")
+        : false,
+      currentUser: false,
     };
   }
   componentDidMount() {
@@ -58,6 +64,14 @@ class Admin extends React.Component {
       for (let i = 0; i < tables.length; i++) {
         ps = new PerfectScrollbar(tables[i]);
       }
+    }
+    if (this.state.loggedIn) {
+      getCurrentUser().then((res) => {
+        console.log(res.data.user, "current user");
+        if (res.status === 200) {
+          this.setState({ currentUser: res.data.user.username });
+        }
+      });
     }
   }
   componentWillUnmount() {
@@ -106,6 +120,13 @@ class Admin extends React.Component {
       timeSpan: event.target.value,
     });
   };
+  setLoggedIn = (loggedIn) => {
+    if (loggedIn === false) {
+      this.cookies.remove("token", { path: "/" });
+      this.cookies.remove("loggedIn", { path: "/" });
+    }
+    this.setState({ loggedIn: loggedIn });
+  };
   render() {
     return (
       <>
@@ -122,18 +143,17 @@ class Admin extends React.Component {
               imgSrc: logo,
             }}
             toggleSidebar={this.toggleSidebar}
+            open={this.state.open}
+            setOpen={this.setOpen}
+            loggedIn={this.state.loggedIn}
+            setLoggedIn={this.setLoggedIn}
+            currentUser={this.state.currentUser}
           />
           <div
             className="main-panel"
             ref="mainPanel"
             data={this.state.backgroundColor}
           >
-            {/* <AdminNavbar
-              {...this.props}
-              brandText={this.getBrandText(this.props.location.pathname)}
-              toggleSidebar={this.toggleSidebar}
-              sidebarOpened={this.state.sidebarOpened}
-            /> */}
             <Switch>
               <Route
                 path={"/dashboard"}

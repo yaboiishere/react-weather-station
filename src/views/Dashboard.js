@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { getAllDataByWeatherStation, CableApp } from "../helpers/api";
-import { useCookies } from 'react-cookie';
+import { useCookies } from "react-cookie";
 // reactstrap components
 import WebSocketComponent from "components/WebSocketComponent";
 import WebSocketCharts from "components/Card/WebSocketChartsComponent";
 const Dashboard = (props) => {
-  const timeSpan = props.timeSpan
-  const [cookies, setCookie] = useCookies(['wsId', 'timeSpan']);
-  const wsIdCookie = cookies.wsId ? parseInt(cookies.wsId) :  1
+  const timeSpan = props.timeSpan;
+  const [cookies, setCookie] = useCookies(["wsId", "timeSpan"]);
+  const wsIdCookie = cookies.wsId ? parseInt(cookies.wsId) : 1;
   const [wsId, setWsId] = useState(wsIdCookie);
   const [wsData, setWsData] = useState({
     temperatures: [],
@@ -27,7 +27,7 @@ const Dashboard = (props) => {
       let data = getData(res.data);
       setWsId(id);
       setWsData(data);
-      setCookie('wsId', id)
+      setCookie("wsId", id, { path: "/" });
     });
   };
   const formatDateArr = (dates) => {
@@ -50,7 +50,7 @@ const Dashboard = (props) => {
     setRerender(!rerender);
   };
   const getData = (data) => {
-    if(!data)return [] 
+    if (!data) return [];
     let newData = data.reduce((acc, val) => {
       for (const [key, value] of Object.entries(val)) {
         if (key !== "id" && key !== "weatherStation") {
@@ -74,7 +74,7 @@ const Dashboard = (props) => {
       setWsData(data);
       console.log(wsData, "Use Effect");
     });
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [timeSpan]);
   return (
     <>
