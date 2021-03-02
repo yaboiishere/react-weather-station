@@ -249,28 +249,6 @@ class Sidebar extends React.Component {
             ) : (
               <></>
             )}
-
-            <TextField
-              id="outlined-basic"
-              select
-              label="Time Span"
-              name="time_span"
-              variant="outlined"
-              value={this.props.timeSpan}
-              SelectProps={{
-                native: true,
-              }}
-              onChange={this.props.handleTimeSpanChange}
-              className="footer"
-              style={{ marginTop: "291%" }}
-              fullWidth
-            >
-              {this.timeSpanSelect.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </TextField>
           </Nav>
           <TextField
             id="outlined-basic"

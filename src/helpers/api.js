@@ -2,10 +2,10 @@ import axios from "axios";
 import actioncable from "actioncable";
 import Cookies from "universal-cookie";
 
-const BASE_URL = "http://localhost:4000";
-// const BASE_URL = "https://weather-station-server.herokuapp.com";
-const WS_URL = "http://localhost:4000/cable";
-// const WS_URL = "https://weather-station-server.herokuapp.com/cable";
+// const BASE_URL = "http://localhost:4000";
+const BASE_URL = "https://weather-station-server.herokuapp.com";
+// const WS_URL = "http://localhost:4000/cable";
+const WS_URL = "https://weather-station-server.herokuapp.com/cable";
 export const CableApp = {};
 CableApp.cable = actioncable.createConsumer(WS_URL);
 
