@@ -37,7 +37,7 @@ axios.interceptors.response.use(
       // window.location.href = `${process.env.URL || "http://localhost:3000/"}`;
       window.location.href = `${
         process.env.URL ||
-        " https://yaboiishere.github.io/react-weather-station/#/"
+        "https://yaboiishere.github.io/react-weather-station/#/"
       }`;
     }
     return Promise.reject({
