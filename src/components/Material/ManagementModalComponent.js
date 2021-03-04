@@ -11,6 +11,7 @@ import {
   getPeople,
   getLastLockUser,
   updateLastLockUser,
+  updatePerson,
 } from "helpers/api";
 import { Grid, Checkbox, FormControlLabel } from "@material-ui/core";
 
@@ -70,12 +71,13 @@ export default function ManagementModal(props) {
     setIsEditingUser(false);
     const { id, value } = event.target;
     const split = id.split("_");
-    const name = split[0],
-      index = split[1];
+    console.log(split);
+    const name = "weather_station",
+      index = split[2];
     let newPeople = updatedPeople;
     newPeople[parseInt(index)] = {
       ...people[parseInt(index)],
-      [name]: value,
+      [name]: parseInt(value),
     };
     setUpdatedPeople(newPeople);
     console.log(newPeople, "newPeople");
@@ -90,6 +92,15 @@ export default function ManagementModal(props) {
   //     });
   //   };
   const handleSave = () => {
+    if (updatedPeople) {
+      updatedPeople.forEach((person) => {
+        if (person) {
+          updatePerson(person).then((res) => {
+            console.log(res);
+          });
+        }
+      });
+    }
     setIsEditingUser(null);
   };
   const onEnter = () => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   ButtonGroup,
   Card,
@@ -8,15 +8,17 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { PeopleButtons } from "components/Card/PeopleButtonsComponent";
+import { getApprovedPeople } from "../../helpers/api";
 import { TemperatureChart } from "components/Chart/TemperatureChartComponent.js";
 import { HumidityChart } from "components/Chart/HumidityChartComponent.js";
-import { PeopleButtonComponent } from "components/PeopleButtonComponent.js";
 
 const BigCardComponent = (props) => {
   const labels = props.labels;
   const temps = props.temperatures;
   const heatIndex = props.heatIndex;
   const humidity = props.humidity;
+  const [people, setPeople] = useState([]);
   const handleOnClick = (id) => {
     if (props.wsId !== id) {
       props.onWsIdChange(id);
@@ -27,6 +29,17 @@ const BigCardComponent = (props) => {
     ? heatIndex[heatIndex.length - 1]
     : "Data missing";
   let lastHumidity = humidity ? humidity[humidity.length - 1] : "Data missing";
+
+  useEffect(() => {
+    getApprovedPeople().then((res) => {
+      if (res.status === 200) {
+        const users = res.data.map((person) => {
+          return { username: person.user.username, id: person.weather_station };
+        });
+        setPeople(users);
+      }
+    });
+  }, []);
   return (
     <Card className="card-chart">
       <CardHeader>
@@ -51,7 +64,12 @@ const BigCardComponent = (props) => {
               className="btn-group-toggle float-right"
               data-toggle="buttons"
             >
-              <PeopleButtonComponent
+              <PeopleButtons
+                wsId={props.wsId}
+                people={people}
+                handleOnClick={handleOnClick}
+              ></PeopleButtons>
+              {/* <PeopleButtonComponent
                 wsId={1}
                 handleOnClick={handleOnClick}
                 text={"Киро"}
@@ -80,7 +98,7 @@ const BigCardComponent = (props) => {
                 handleOnClick={handleOnClick}
                 text={"Лудия"}
                 active={props.wsId}
-              />
+              /> */}
             </ButtonGroup>
           </Col>
         </Row>

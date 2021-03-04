@@ -195,3 +195,18 @@ export async function updateLastLockUser(data) {
     .then((res) => res)
     .catch((err) => err);
 }
+export async function updatePerson(data) {
+  const options = {
+    method: "PUT",
+    url: `/people/${data.id}`,
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: data,
+    json: true,
+  };
+  return axios(options)
+    .then((res) => res)
+    .catch((err) => err);
+}
